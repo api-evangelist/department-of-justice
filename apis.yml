@@ -1,5 +1,5 @@
 aid: department-of-justice
-url: >-
+url: >2-
 
   https://raw.githubusercontent.com/api-evangelist/department-of-justice/refs/heads/main/apis.yml
 apis:
@@ -11,13 +11,12 @@ apis:
     properties:
       - url: https://www.justice.gov/developer
         type: Documentation
-    description: |-
-
-      DOJ News API Department of Justice, Office of Public Affairs The DOJ News
-      API makes more than 14,000 press releases, speeches, and blog entries from
-      the Office of Public Affairs available as a web service. By providing this
-      digital distribution, the Office is ensuring that the public is informed
-      about the Departments activities, and about the ...
+    description: >-
+      DOJ News API Department of Justice, Office of Public Affairs The DOJ News API
+      makes more than 14,000 press releases, speeches, and blog entries from the Office
+      of Public Affairs available as a web service. By providing this digital distribution,
+      the Office is ensuring that the public is informed about the Departments activities,
+      and about the ...
 name: Department of Justice
 tags:
   - Federal Government
@@ -27,13 +26,12 @@ access: 3rd-Party
 created: '2024-12-03'
 modified: '2026-03-16'
 position: Consumer
-description: |-
-
-  DOJ News API Department of Justice, Office of Public Affairs The DOJ News API
-  makes more than 14,000 press releases, speeches, and blog entries from the
-  Office of Public Affairs available as a web service. By providing this digital
-  distribution, the Office is ensuring that the public is informed about the
-  Departments activities, and about the ...
+description: >-
+  DOJ News API Department of Justice, Office of Public Affairs The DOJ News API makes
+  more than 14,000 press releases, speeches, and blog entries from the Office of Public
+  Affairs available as a web service. By providing this digital distribution, the
+  Office is ensuring that the public is informed about the Departments activities,
+  and about the ...
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
