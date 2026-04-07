@@ -5,8 +5,7 @@ url: >2-
 apis:
   - aid: department-of-justice:department-of-justice
     name: Department of Justice
-    tags:
-      - API
+    tags: []
     humanURL: https://www.justice.gov/developer
     properties:
       - url: https://www.justice.gov/developer
