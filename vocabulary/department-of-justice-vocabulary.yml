@@ -1,0 +1,73 @@
+name: Department of Justice Vocabulary
+description: >-
+  Shared vocabulary of terms used across DOJ public APIs and feeds, including
+  the DOJ News API, FOIA.gov developer APIs, and the Bureau of Justice
+  Statistics NCVS and NIBRS APIs.
+terms:
+  - term: DOJ
+    definition: >-
+      The U.S. Department of Justice, the federal department responsible for
+      enforcing the law and defending the interests of the United States.
+  - term: Office of Public Affairs
+    definition: >-
+      The DOJ office that publishes official press releases, speeches, and
+      blog entries on behalf of the Department.
+  - term: Press Release
+    definition: >-
+      An official news announcement issued by the Department or one of its
+      components.
+  - term: Speech
+    definition: >-
+      A public address by a senior Department official, often the Attorney
+      General, available through the DOJ News API.
+  - term: Blog Entry
+    definition: >-
+      A short article published by the Department on its blog and available
+      through the DOJ News API.
+  - term: Component
+    definition: >-
+      A DOJ bureau or office such as FBI, DEA, ATF, U.S. Marshals, or BOP
+      that may issue news content.
+  - term: FOIA
+    definition: >-
+      The Freedom of Information Act, the statute through which the public
+      may request federal agency records.
+  - term: Annual FOIA Report
+    definition: >-
+      The XML report each federal agency files annually summarizing FOIA
+      activity, accessible via the FOIA.gov developer API.
+  - term: BJS
+    definition: >-
+      The Bureau of Justice Statistics, the DOJ component that collects and
+      analyzes statistical data on crime and the justice system.
+  - term: NCVS
+    definition: >-
+      The National Crime Victimization Survey, BJS's annual survey of U.S.
+      households on criminal victimization.
+  - term: NIBRS
+    definition: >-
+      The National Incident-Based Reporting System used by law enforcement
+      agencies to report detailed incident-level crime data to the FBI.
+  - term: National Estimate
+    definition: >-
+      A statistic computed from NIBRS submissions to estimate national-level
+      crime measures.
+  - term: Personal Victimization
+    definition: >-
+      A category in NCVS that captures non-fatal violent crimes against
+      individuals.
+  - term: Household Victimization
+    definition: >-
+      A category in NCVS that captures property crimes against households.
+  - term: OJP
+    definition: >-
+      The Office of Justice Programs, the DOJ component that funds research,
+      programs, and statistics including BJS.
+  - term: Open Data Catalog
+    definition: >-
+      The DOJ collection of datasets published via Data.gov and the DOJ
+      Open Government program.
+  - term: Dataset
+    definition: >-
+      A collection of related data files published with metadata and
+      documentation.

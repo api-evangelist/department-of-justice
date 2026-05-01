@@ -1,0 +1,45 @@
+name: Department of Justice Capabilities
+description: >-
+  Capabilities exposed by DOJ public APIs and feeds, including the DOJ News
+  API, FOIA.gov developer APIs, BJS NCVS and NIBRS APIs, and the DOJ Open
+  Data Catalog.
+capabilities:
+  - name: Press Release Search
+    description: List and filter DOJ press releases by date, title, and component.
+    api: department-of-justice:doj-news-api
+  - name: Speech Search
+    description: List and filter DOJ speeches by speaker, date, and topic.
+    api: department-of-justice:doj-news-api
+  - name: Blog Entry Search
+    description: List and filter DOJ blog entries by date and topic.
+    api: department-of-justice:doj-news-api
+  - name: Content Detail by UUID
+    description: Retrieve a single press release, speech, or blog entry by its UUID.
+    api: department-of-justice:doj-news-api
+  - name: FOIA Annual Report Download
+    description: Retrieve agency annual FOIA reports as XML by abbreviation and year.
+    api: department-of-justice:foia-annual-report-api
+  - name: NCVS Personal Victimization
+    description: Retrieve personal victimization datasets from NCVS.
+    api: department-of-justice:bjs-ncvs-api
+  - name: NCVS Household Victimization
+    description: Retrieve household victimization datasets from NCVS.
+    api: department-of-justice:bjs-ncvs-api
+  - name: NCVS Population Datasets
+    description: Retrieve personal and household population denominators from NCVS.
+    api: department-of-justice:bjs-ncvs-api
+  - name: NIBRS Victimization Counts
+    description: Retrieve national estimates of victimization counts from NIBRS.
+    api: department-of-justice:bjs-nibrs-api
+  - name: NIBRS Victimization Rates
+    description: Retrieve national estimates of victimization rates from NIBRS.
+    api: department-of-justice:bjs-nibrs-api
+  - name: JSON and CSV Output
+    description: Return BJS API responses in JSON or CSV format.
+    api: department-of-justice:bjs-ncvs-api
+  - name: Dataset Discovery
+    description: Search and discover DOJ datasets on Data.gov.
+    api: department-of-justice:doj-open-data-catalog
+  - name: Dataset Download
+    description: Retrieve dataset resources via the Data.gov CKAN API.
+    api: department-of-justice:doj-open-data-catalog

@@ -1,0 +1,71 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "doj": "https://www.justice.gov/",
+    "PressRelease": {
+      "@id": "https://schema.org/NewsArticle",
+      "@context": {
+        "uuid": "https://schema.org/identifier",
+        "title": "https://schema.org/headline",
+        "date": "https://schema.org/datePublished",
+        "body": "https://schema.org/articleBody",
+        "component": "https://schema.org/sourceOrganization"
+      }
+    },
+    "Speech": {
+      "@id": "https://schema.org/Article",
+      "@context": {
+        "uuid": "https://schema.org/identifier",
+        "title": "https://schema.org/headline",
+        "date": "https://schema.org/datePublished",
+        "speaker": "https://schema.org/author",
+        "body": "https://schema.org/articleBody"
+      }
+    },
+    "BlogEntry": {
+      "@id": "https://schema.org/BlogPosting",
+      "@context": {
+        "uuid": "https://schema.org/identifier",
+        "title": "https://schema.org/headline",
+        "date": "https://schema.org/datePublished",
+        "body": "https://schema.org/articleBody"
+      }
+    },
+    "FOIAReport": {
+      "@id": "doj:foia/annual-report",
+      "@context": {
+        "agency": "https://schema.org/sourceOrganization",
+        "year": "https://schema.org/datePublished",
+        "format": "https://schema.org/encodingFormat"
+      }
+    },
+    "Victimization": {
+      "@id": "doj:bjs/ncvs",
+      "@context": {
+        "year": "https://schema.org/datePublished",
+        "category": "https://schema.org/category",
+        "rate": "https://schema.org/value",
+        "count": "https://schema.org/value"
+      }
+    },
+    "Incident": {
+      "@id": "doj:bjs/nibrs",
+      "@context": {
+        "year": "https://schema.org/datePublished",
+        "offenseType": "https://schema.org/category",
+        "victimization": "https://schema.org/about",
+        "estimate": "https://schema.org/value"
+      }
+    },
+    "Dataset": {
+      "@id": "https://schema.org/Dataset",
+      "@context": {
+        "id": "https://schema.org/identifier",
+        "title": "https://schema.org/name",
+        "description": "https://schema.org/description",
+        "publisher": "https://schema.org/publisher",
+        "license": "https://schema.org/license"
+      }
+    }
+  }
+}
