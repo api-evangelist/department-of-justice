@@ -24,7 +24,7 @@ url: >-
 created: '2024-12-03'
 modified: '2026-04-28'
 specificationVersion: '0.19'
-xType: government
+kind: government
 position: Producer
 access: Public
 apis:
@@ -190,13 +190,13 @@ common:
     url: https://www.bop.gov
   - type: Data.gov DOJ Catalog
     url: https://catalog.data.gov/organization/doj-gov
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.justice.gov/legalpolicies
   - type: Contact
     url: https://www.justice.gov/contact-us
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/usdoj
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/department-of-justice-context.jsonld
   - type: Vocabulary
     url: vocabulary/department-of-justice-vocabulary.yml
