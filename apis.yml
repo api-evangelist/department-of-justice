@@ -162,6 +162,8 @@ apis:
       - FN: DOJ Open Data
         url: https://www.justice.gov/open
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/usdoj
   - type: Website
     url: https://www.justice.gov
   - type: Open Government
