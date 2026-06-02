@@ -1,0 +1,8 @@
+---
+title: Principal Deputy Assistant Attorney General Sue Bai
+url: https://www.justice.gov/nsd/staff-profile/principal-deputy-assistant-attorney-general-sue-bai
+date: '2026-03-11'
+author: Nilesh.Bhut@usdoj.gov
+feed_url: https://justice.gov/rss.xml
+---
+Principal Deputy Assistant Attorney General Sue Bai Nilesh.Bhut@us… Wed, 03/11/2026 - 09:15 Sue Bai Sue Bai, Principal Deputy Assistant Attorney General Principal Deputy Assistant Attorney General Sue J. Bai currently serves as the Principal Deputy Assistant Attorney General of the National Security Division. Sue J. Bai currently serves as the Principal Deputy Assistant Attorney General of the National Security Division. Ms. Bai began her career in the Department of Justice as an Assistant United States Attorney in the United States Attorney’s Office for the Central District of California where she prosecuted in the Criminal and National Security Divisions.  She later joined the Office of the Deputy Attorney General to serve as the Associate Deputy Attorney General for the Department’s national security priorities. Outside of DOJ, Ms. Bai served at the White House National Security Council as Deputy Assistant to the President and Principal Deputy Legal Advisor.  She also served in the White House Counsel’s Office as Associate Counsel to the President advising on investigations, foreign policy, and national security matters. Before joining government, Ms. Bai practiced law at Gibson Dunn in Washington D.C. and clerked on the United States Court of Appeals for the Third Circuit.  She earned her Bachelor of Science and her Juris Doctor from Georgetown University. Wed, 01/01/2025 - 12:00 National Security Division (NSD)
