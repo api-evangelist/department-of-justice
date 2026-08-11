@@ -216,8 +216,6 @@ common:
     url: json-ld/department-of-justice-context.jsonld
   - type: Vocabulary
     url: vocabulary/department-of-justice-vocabulary.yml
-  - type: Capabilities
-    url: capabilities/department-of-justice-capabilities.yml
   - url: https://www.justice.gov/rss.xml
     type: Blog
 maintainers:
