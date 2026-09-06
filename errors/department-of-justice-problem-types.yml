@@ -1,0 +1,113 @@
+specification: API Commons Error Catalog
+specificationVersion: '0.1'
+provider: Department of Justice
+providerId: department-of-justice
+generated: '2026-09-06'
+method: derived
+source: Derived from the 4xx responses declared in openapi/department-of-justice-foia-api-swagger.json, plus live
+  anonymous probes of api.foia.gov, api.ojp.gov, www.justice.gov and efile.fara.gov on 2026-09-06.
+format: none
+format_note: Not RFC 9457. No operation in the contract declares application/problem+json, and no DOJ host returns
+  one. The FOIA gateway (api.data.gov) returns its own JSON envelope; justice.gov, bjs.ojp.gov and efile.fara.gov
+  return HTML error pages even for API paths.
+envelopes:
+- surface: National FOIA Portal (api.foia.gov, fronted by api.data.gov)
+  media_type: application/json
+  shape: '{"error":{"code":"<SLUG>","message":"<text>"}}'
+  observed:
+  - status: 403
+    code: API_KEY_MISSING
+    message: No api_key was supplied. Get one at https://api.data.gov/signup/
+    evidence: https://api.foia.gov/api/agency_components
+  - status: 404
+    code: NOT_FOUND
+    message: The requested URL was not found on this server.
+    evidence: https://api.foia.gov/
+- surface: DOJ News API (www.justice.gov/api/v1)
+  media_type: text/html
+  shape: Drupal HTML 404 page
+  observed:
+  - status: 404
+    code: null
+    message: HTML error page, not JSON
+    evidence: https://www.justice.gov/api/v1/speeches.json
+  note: An unknown resource under /api/v1 returns a 56KB HTML page with status 404 rather than a JSON error envelope,
+    so a client must branch on Content-Type, not on the body.
+- surface: BJS datasets (api.ojp.gov/bjsdataset/v1)
+  media_type: application/xml
+  shape: <am:fault><am:code/><am:type/><am:message/><am:description/></am:fault>
+  observed:
+  - status: 404
+    code: '404'
+    message: Not Found
+    evidence: https://api.ojp.gov/.well-known/api-catalog
+  note: api.ojp.gov is a WSO2 API Manager gateway and returns Synapse XML faults, not JSON.
+problem_types:
+- status: 400
+  titles:
+  - Syntax error
+  operation_count: 15
+  operations:
+  - GET /agency_components
+  - GET /agency_components/{entity}
+  - GET /agency_components/{entity}/request_form
+  - GET /annual_foia_report/fiscal_years
+  - GET /cfo_meeting/{entity}
+  - GET /cfo_meeting/{entity}/field_meeting_agenda
+  - GET /cfo_meeting/{entity}/field_meeting_documents
+  - GET /cfo_meeting/{entity}/field_meeting_materials
+  - GET /node/cfo_committee
+  - GET /node/cfo_committee/{entity}/field_working_groups
+  - GET /node/cfo_council/{entity}
+  - GET /node/cfo_page
+  - GET /node/cfo_page/{entity}
+  - GET /node/cfo_page/{entity}/field_attachments
+  - GET /quarterly_foia_report/fiscal_years
+- status: 403
+  titles:
+  - 'Forbidden: The api_key is missing'
+  operation_count: 20
+  operations:
+  - GET /agency_components
+  - GET /agency_components/{entity}
+  - GET /agency_components/{entity}/request_form
+  - GET /annual-report-xml/{agency}/{year}
+  - GET /annual_foia_report/fiscal_years
+  - GET /cfo_meeting/{entity}
+  - GET /cfo_meeting/{entity}/field_meeting_agenda
+  - GET /cfo_meeting/{entity}/field_meeting_documents
+  - GET /cfo_meeting/{entity}/field_meeting_materials
+  - GET /node/cfo_committee
+  - GET /node/cfo_committee/{entity}
+  - GET /node/cfo_committee/{entity}/field_attachments
+  - GET /node/cfo_committee/{entity}/field_working_groups
+  - GET /node/cfo_council
+  - GET /node/cfo_council/{entity}
+  - GET /node/cfo_meeting
+  - GET /node/cfo_page
+  - GET /node/cfo_page/{entity}
+  - GET /node/cfo_page/{entity}/field_attachments
+  - GET /quarterly_foia_report/fiscal_years
+- status: 404
+  titles:
+  - Agency Component Not Found
+  - Not Found
+  operation_count: 15
+  operations:
+  - GET /agency_components
+  - GET /agency_components/{entity}
+  - GET /agency_components/{entity}/request_form
+  - GET /annual_foia_report/fiscal_years
+  - GET /cfo_meeting/{entity}
+  - GET /cfo_meeting/{entity}/field_meeting_agenda
+  - GET /cfo_meeting/{entity}/field_meeting_documents
+  - GET /cfo_meeting/{entity}/field_meeting_materials
+  - GET /node/cfo_committee
+  - GET /node/cfo_committee/{entity}/field_working_groups
+  - GET /node/cfo_council/{entity}
+  - GET /node/cfo_page
+  - GET /node/cfo_page/{entity}
+  - GET /node/cfo_page/{entity}/field_attachments
+  - GET /quarterly_foia_report/fiscal_years
+note: Response descriptions are copied verbatim from the contract. The FOIA contract declares no 5xx response on
+  any operation.

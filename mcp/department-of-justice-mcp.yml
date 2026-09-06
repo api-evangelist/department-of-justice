@@ -1,0 +1,376 @@
+specification: API Commons MCP
+specificationVersion: '0.1'
+provider: Department of Justice
+providerId: department-of-justice
+generated: '2026-09-06'
+method: derived
+status: candidate
+source: 'No MCP server is published by the Department of Justice. Searched the DOJ Developer Resources page, justice.gov/developer/api-documentation/api_v1,
+  foia.gov/developer, the BJS NCVS and NIBRS API pages, and the github.com/usdoj organization (7 repos, none MCP).
+  Probed /.well-known/ai-plugin.json on www.justice.gov, justice.gov, www.foia.gov, api.foia.gov, bjs.ojp.gov, api.ojp.gov,
+  catalog.data.gov and efile.fara.gov: 404 on every host, 2026-09-06. The tool list below is DERIVED from the FOIA
+  Portal Swagger contract and is not something DOJ ships.'
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+  note: 'mode: none — nobody ships a server for this API surface, hosted or stdio. No endpoint is invented here.'
+tool_count: 24
+tools:
+- name: foia_get_agency_components
+  description: Get a List of Agency Components
+  rest:
+    method: GET
+    path: /agency_components
+  parameters:
+  - name: fields[agency_component]
+    in: query
+    type: string
+    required: false
+  - name: fields[agency]
+    in: query
+    type: string
+    required: false
+  - name: page[limit]
+    in: query
+    type: number
+    required: false
+  - name: page[offset]
+    in: query
+    type: string
+    required: false
+  - name: include
+    in: query
+    type: string
+    required: false
+- name: foia_get_agency_components_by_entity
+  description: Get Agency Component Details
+  rest:
+    method: GET
+    path: /agency_components/{entity}
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_agency
+  description: 'List Taxonomy: Agency'
+  rest:
+    method: GET
+    path: /agency
+  parameters:
+  - name: page[limit]
+    in: query
+    type: number
+    required: false
+  - name: page[offset]
+    in: query
+    type: string
+    required: false
+  - name: include
+    in: query
+    type: string
+    required: false
+- name: foia_get_agency_by_entity
+  description: 'Get Taxonomy Details: Agency'
+  rest:
+    method: GET
+    path: /agency/{entity}
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_agency_components_by_entity_request_form
+  description: Get Agency Component Request Form
+  rest:
+    method: GET
+    path: /agency_components/{entity}/request_form
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_annual_foia_report
+  description: List Annual FOIA Reports
+  rest:
+    method: GET
+    path: /annual_foia_report
+  parameters:
+  - name: page[limit]
+    in: query
+    type: number
+    required: true
+  - name: page[offset]
+    in: query
+    type: string
+    required: false
+  - name: sort
+    in: query
+    type: array
+    required: false
+  - name: include
+    in: query
+    type: string
+    required: false
+- name: foia_get_annual_foia_report_fiscal_years
+  description: 'Get Annual Report: Fiscal Years'
+  rest:
+    method: GET
+    path: /annual_foia_report/fiscal_years
+  parameters: []
+- name: foia_get_quarterly_foia_report
+  description: List Quarterly FOIA Reports
+  rest:
+    method: GET
+    path: /quarterly_foia_report
+  parameters:
+  - name: page[limit]
+    in: query
+    type: number
+    required: true
+  - name: page[offset]
+    in: query
+    type: string
+    required: false
+  - name: sort
+    in: query
+    type: array
+    required: false
+  - name: include
+    in: query
+    type: string
+    required: false
+- name: foia_get_quarterly_foia_report_fiscal_years
+  description: 'Get Quarterly Report: Fiscal Years'
+  rest:
+    method: GET
+    path: /quarterly_foia_report/fiscal_years
+  parameters: []
+- name: foia_get_annual_report_xml_by_agency_by_year
+  description: Individual Annual Reports in XML format are available via the Annual Report XML Endpoint.
+  rest:
+    method: GET
+    path: /annual-report-xml/{agency}/{year}
+  parameters:
+  - name: agency
+    in: path
+    type: string
+    required: true
+  - name: year
+    in: path
+    type: number
+    required: true
+- name: foia_get_node_cfo_meeting
+  description: List CFO Meetings
+  rest:
+    method: GET
+    path: /node/cfo_meeting
+  parameters:
+  - name: page[limit]
+    in: query
+    type: number
+    required: false
+  - name: page[offset]
+    in: query
+    type: string
+    required: false
+  - name: sort
+    in: query
+    type: array
+    required: false
+  - name: sort[sort-created][direction]
+    in: query
+    type: string
+    required: false
+  - name: include
+    in: query
+    type: string
+    required: false
+- name: foia_get_cfo_meeting_by_entity
+  description: Get CFO Meeting
+  rest:
+    method: GET
+    path: /cfo_meeting/{entity}
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_cfo_meeting_by_entity_field_meeting_agenda
+  description: Get CFO Meeting Agenda Item
+  rest:
+    method: GET
+    path: /cfo_meeting/{entity}/field_meeting_agenda
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_cfo_meeting_by_entity_field_meeting_documents
+  description: Get CFO Meeting Documents
+  rest:
+    method: GET
+    path: /cfo_meeting/{entity}/field_meeting_documents
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_cfo_meeting_by_entity_field_meeting_materials
+  description: Get CFO Meeting Materials
+  rest:
+    method: GET
+    path: /cfo_meeting/{entity}/field_meeting_materials
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_node_cfo_committee
+  description: List CFO Committees
+  rest:
+    method: GET
+    path: /node/cfo_committee
+  parameters:
+  - name: page[limit]
+    in: query
+    type: number
+    required: false
+  - name: page[offset]
+    in: query
+    type: string
+    required: false
+  - name: sort
+    in: query
+    type: array
+    required: false
+  - name: sort[sort-created][direction]
+    in: query
+    type: string
+    required: false
+  - name: include
+    in: query
+    type: string
+    required: false
+- name: foia_get_node_cfo_committee_by_entity
+  description: View CFO Committee Details
+  rest:
+    method: GET
+    path: /node/cfo_committee/{entity}
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_node_cfo_committee_by_entity_field_working_groups
+  description: CFO Committee Working Groups
+  rest:
+    method: GET
+    path: /node/cfo_committee/{entity}/field_working_groups
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_node_cfo_committee_by_entity_field_attachments
+  description: CFO Committee Attachments
+  rest:
+    method: GET
+    path: /node/cfo_committee/{entity}/field_attachments
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_node_cfo_council
+  description: List CFO Councils
+  rest:
+    method: GET
+    path: /node/cfo_council
+  parameters:
+  - name: page[limit]
+    in: query
+    type: number
+    required: false
+  - name: page[offset]
+    in: query
+    type: string
+    required: false
+  - name: sort
+    in: query
+    type: array
+    required: false
+  - name: sort[sort-created][direction]
+    in: query
+    type: string
+    required: false
+  - name: include
+    in: query
+    type: string
+    required: false
+- name: foia_get_node_cfo_council_by_entity
+  description: Get CFO Council Details
+  rest:
+    method: GET
+    path: /node/cfo_council/{entity}
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_node_cfo_page
+  description: List CFO Pages
+  rest:
+    method: GET
+    path: /node/cfo_page
+  parameters:
+  - name: page[limit]
+    in: query
+    type: number
+    required: false
+  - name: page[offset]
+    in: query
+    type: string
+    required: false
+  - name: sort
+    in: query
+    type: array
+    required: false
+  - name: include
+    in: query
+    type: string
+    required: false
+- name: foia_get_node_cfo_page_by_entity
+  description: Get CFO Page Details
+  rest:
+    method: GET
+    path: /node/cfo_page/{entity}
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+- name: foia_get_node_cfo_page_by_entity_field_attachments
+  description: CFO Page Attachments
+  rest:
+    method: GET
+    path: /node/cfo_page/{entity}/field_attachments
+  parameters:
+  - name: entity
+    in: path
+    type: string
+    required: true
+not_covered:
+- surface: DOJ News API
+  reason: No machine-readable contract; documented resources are press_releases.json and blog_entries.json (list
+    + by-uuid) with fields/page/pagesize/sort/direction parameters.
+- surface: BJS NCVS and NIBRS National Estimates
+  reason: Socrata-style dataset resources on api.ojp.gov/bjsdataset/v1 with no published schema.
+- surface: FARA e-File
+  reason: Undocumented ORDS feed; only /api/v1/Registrants/json/{Active|Terminated} verified live.
+- surface: DOJ Open Data Catalog
+  reason: DCAT-US 1.1 document at justice.gov/data.json, not an operation surface.

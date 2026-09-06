@@ -1,0 +1,46 @@
+specification: Agent Skills
+specificationVersion: '0.1'
+provider: Department of Justice
+providerId: department-of-justice
+generated: '2026-09-06'
+method: generated
+source: >-
+  Written by API Evangelist. The two FOIA skills are grounded operation-for-operation in
+  openapi/department-of-justice-foia-api-swagger.json, the verbatim first-party contract published
+  at https://github.com/usdoj/foia.gov/blob/develop/swagger.json. The DOJ News and BJS skills are
+  grounded in the resource lists, arguments and worked examples on the provider's own
+  documentation pages, since those two APIs publish no machine-readable contract; every endpoint
+  named in them was called live and returned 200 on 2026-09-06. DOJ publishes no skills or
+  AGENTS.md of its own — searched justice.gov, foia.gov, bjs.ojp.gov and the github.com/usdoj
+  organization.
+skill_count: 4
+skills:
+  - name: foia-annual-report-lookup
+    file: department-of-justice-foia-annual-report-lookup.md
+    api: National FOIA Portal JSON:API
+    grounded_in: openapi/department-of-justice-foia-api-swagger.json
+    operations: 5
+  - name: agency-component-directory
+    file: department-of-justice-agency-component-directory.md
+    api: National FOIA Portal JSON:API
+    grounded_in: openapi/department-of-justice-foia-api-swagger.json
+    operations: 4
+  - name: doj-news-feed-harvest
+    file: department-of-justice-news-feed-harvest.md
+    api: DOJ News API
+    grounded_in: https://www.justice.gov/developer/api-documentation/api_v1
+    operations: 4
+  - name: bjs-crime-statistics
+    file: department-of-justice-bjs-crime-statistics.md
+    api: BJS NCVS and NIBRS National Estimates
+    grounded_in: https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api
+    operations: 2
+not_covered:
+  - api: FARA e-File Registrant feed
+    reason: >-
+      No published documentation to ground a skill in. Only
+      /api/v1/Registrants/json/{Active,Terminated} were verified live; the ORDS API page linked
+      from the DOJ developer page (efile.fara.gov/ords/f?p=API) returns 500. Writing steps for
+      undocumented endpoints would be inventing an interface.
+  - api: DOJ Open Data Catalog
+    reason: A DCAT-US document, not an operation surface. catalog.data.gov is operated by GSA.

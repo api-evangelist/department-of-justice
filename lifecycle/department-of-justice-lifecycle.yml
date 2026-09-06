@@ -1,0 +1,86 @@
+specification: API Commons Lifecycle
+specificationVersion: '0.1'
+provider: Department of Justice
+providerId: department-of-justice
+generated: '2026-09-06'
+method: searched
+source: >-
+  Searched every DOJ developer surface for a versioning policy, a deprecation policy, an SLA and
+  a status page: https://www.justice.gov/developer,
+  https://www.justice.gov/developer/api-documentation/api_v1, https://www.foia.gov/developer/,
+  https://www.foia.gov/swagger.html, the FOIA Portal contract itself, and the BJS NCVS and NIBRS
+  API pages. Also derived from the contract's own info.version.
+versioning:
+  scheme: path-segment (partial)
+  detail: >-
+    Two of the five surfaces carry a version in the path and nothing else states a policy. The DOJ
+    News API is served under /api/v1/ and its documentation page is titled "Version api_v1". The
+    BJS datasets sit under /bjsdataset/v1/. The FARA feed is under /api/v1/. The FOIA Portal
+    contract is explicit that it has no scheme at all: info.version reads "Versioning not
+    supported". No DOJ surface documents how a new version would be introduced, how long an old
+    one would run, or how a consumer would be told.
+  current:
+    - api: DOJ News API
+      version: api_v1
+      url: https://www.justice.gov/developer/api-documentation/api_v1
+    - api: National FOIA Portal JSON:API
+      version: none declared
+      url: https://www.foia.gov/swagger.html
+      note: 'info.version is the literal string "Versioning not supported".'
+    - api: BJS NCVS / NIBRS National Estimates
+      version: v1
+      url: https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  detail: >-
+    No deprecation policy, no Sunset or Deprecation response header, and no advance-notice
+    commitment on any surface. There is direct evidence of the cost of this: both BJS API pages
+    carry the standing note "In July of 2025, changes were made to specific endpoints. All
+    datasets remain available using modified endpoint locations described in the access
+    instructions below." The endpoints moved, the old locations stopped answering, and the only
+    notice is a sentence on the HTML page — no dated changelog entry, no header, no versioned
+    alias. The DOJ News API documentation likewise no longer lists a speeches resource even
+    though the developer page still describes speeches as part of the API; GET
+    /api/v1/speeches.json returned 404 on 2026-09-06.
+  deprecated_operations: []
+  deprecated_operations_note: >-
+    The FOIA contract marks no operation deprecated. Derived from
+    openapi/department-of-justice-foia-api-swagger.json.
+observed_drift:
+  - surface: BJS NCVS / NIBRS
+    change: Endpoints relocated to https://api.ojp.gov/bjsdataset/v1/
+    when_stated: July 2025
+    old_location_status: 'https://bjs.ojp.gov/api/* returns 404 (probed 2026-09-06)'
+    notice: HTML note on the API documentation page only
+  - surface: DOJ News API
+    change: No speeches resource in the current documented resource list
+    old_location_status: 'https://www.justice.gov/api/v1/speeches.json returns 404 (probed 2026-09-06)'
+    notice: none
+  - surface: DOJ Open Data Catalog
+    change: CKAN Action API v3 no longer served at catalog.data.gov/api/3
+    old_location_status: 'https://catalog.data.gov/api/3/action/package_search returns 404 (probed 2026-09-06)'
+    notice: none from DOJ; catalog.data.gov is operated by GSA, which now serves an OpenAPI 3.1 "Datagov Catalog" API at /api
+status_page:
+  published: false
+  detail: >-
+    No status page for any DOJ API. Probed https://www.foia.gov/api/status (404) and looked for a
+    status link on every developer page; none exists. The FOIA and BJS surfaces sit behind shared
+    federal gateways (api.data.gov and a WSO2 API Manager on api.ojp.gov) whose availability DOJ
+    does not report on.
+sla:
+  published: false
+  detail: >-
+    No service level agreement or availability commitment is published. The DOJ News API
+    documentation instead asks developers to "keep the stability of the API and their own
+    applications in mind" and warns that heavy users "may be blocked entirely".
+changelog:
+  published: false
+  detail: >-
+    No dated changelog for any surface. The only change notices found are the undated prose notes
+    described under deprecation above.
+support:
+  channel: https://www.justice.gov/contact-us
+  foia_channel: https://www.foia.gov/developer/

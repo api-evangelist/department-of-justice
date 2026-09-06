@@ -1,0 +1,707 @@
+specification: API Commons Data Model
+specificationVersion: '0.1'
+provider: Department of Justice
+providerId: department-of-justice
+generated: '2026-09-06'
+method: derived
+source: Derived from openapi/department-of-justice-foia-api-swagger.json (National FOIA Portal JSON:API, Swagger
+  2.0, 24 operations, 13 definitions), the only machine-readable contract the Department publishes.
+scope: National FOIA Portal JSON:API only. The DOJ News API, BJS NCVS/NIBRS datasets, FARA e-File feeds and the
+  DCAT-US catalog publish no schema, so no entities are derived for them.
+identifier_scheme:
+  style: uuid
+  field: data.id
+  format: uuid
+  max_length: 128
+  note: Every FOIA Portal resource is a Drupal entity keyed by UUID. The docs give the Office of Information Policy
+    agency component id as a worked example.
+envelope:
+  media_type: application/vnd.api+json
+  standard: JSON:API 1.0
+  collection_shape: '{ data: [ {type,id,attributes,relationships,links} ], meta, links, jsonapi }'
+  single_shape: '{ data: {type,id,attributes,relationships,links}, meta, links, jsonapi }'
+entity_count: 13
+entities:
+- name: node--agency_component
+  description: An Agency Component to which a request can be sent and which will be fulfilling requests.
+  attribute_count: 29
+  attributes_sample:
+  - status
+  - title
+  - moderation_state
+  - description
+  - abbreviation
+  - telephone
+  - request_data_complex_average_days
+  - request_data_complex_highest_days
+  - request_data_complex_lowest_days
+  - request_data_complex_median_days
+  - email
+  - request_data_expedited_average_days
+  relationships:
+  - agency
+  - foia_officers
+  - field_misc
+  - public_liaisons
+  - paper_receiver
+  - request_form
+  - service_centers
+- name: paragraph--agenda_item
+  description: Describes the payload for 'paragraph' entities of the 'agenda_item' bundle.
+  attribute_count: 15
+  attributes_sample:
+  - drupal_internal__id
+  - drupal_internal__revision_id
+  - langcode
+  - status
+  - created
+  - parent_id
+  - parent_type
+  - parent_field_name
+  - behavior_settings
+  - default_langcode
+  - revision_default
+  - revision_translation_affected
+  relationships:
+  - paragraph_type
+- name: node--quarterly_foia_report_data
+  description: Quarterly total data report given by an agency.
+  attribute_count: 9
+  attributes_sample:
+  - status
+  - title
+  - field_quarterly_backlogged_oa
+  - field_quarterly_closed
+  - field_quarterly_pending
+  - field_quarterly_processed_oa
+  - field_quarterly_quarter
+  - field_quarterly_received_oa
+  - field_quarterly_year
+  relationships:
+  - field_agency
+  - field_agency_components
+  - field_quarterly_component_data
+- name: node--annual_foia_report_data
+  description: Annual total data report given by an agency.
+  attribute_count: 281
+  attributes_sample:
+  - status
+  - title
+  - field_agency_abbr
+  - field_date_prepared
+  - field_foia_annual_report_yr
+  - field_footnotes_iv
+  - field_footnotes_ix
+  - field_footnotes_va
+  - field_footnotes_vb1
+  - field_footnotes_vb2
+  - field_footnotes_vb3
+  - field_footnotes_via
+  relationships:
+  - field_admin_app_via
+  - field_admin_app_vib
+  - field_admin_app_vic1
+  - field_admin_app_vic2
+  - field_admin_app_vic3
+  - field_admin_app_vic4
+  - field_admin_app_vic5
+  - field_admin_app_viie
+  - field_agency
+  - field_agency_components
+  - field_fees_x
+  - field_foia_pers_costs_ix
+  - field_foia_requests_va
+  - field_foia_requests_vb1
+  - field_foia_requests_vb2
+  - field_foia_requests_vb3
+  - field_foia_xiia
+  - field_foia_xiib
+  - field_foia_xiic
+  - field_foia_xiid1
+  - field_foia_xiid2
+  - field_foia_xiie1
+  - field_foia_xiie2
+  - field_pending_requests_vii_d_
+  - field_proc_req_viia
+  - field_proc_req_viib
+  - field_proc_req_viic1
+  - field_proc_req_viic2
+  - field_proc_req_viic3
+  - field_report_files
+  - field_req_viiia
+  - field_req_viiib
+  - field_statute_iv
+  - field_sub_xia
+  - field_sub_xib
+- name: node--cfo_meeting
+  description: Meetings for the Chief FOIA Officers Council.  Contains the date, body, heading, agenda, and links
+    to meeting related documents and information.
+  attribute_count: 24
+  attributes_sample:
+  - drupal_internal__nid
+  - drupal_internal__vid
+  - langcode
+  - revision_timestamp
+  - revision_log
+  - status
+  - title
+  - created
+  - changed
+  - promote
+  - sticky
+  - default_langcode
+  relationships:
+  - node_type
+  - revision_uid
+  - uid
+  - menu_link
+  - field_meeting_agenda
+  - field_meeting_documents
+  - field_meeting_materials
+- name: node--cfo_committee
+  description: Committees of the Chief FOIA Officers Council.  Includes title and WYSIWYG description fields.
+  attribute_count: 23
+  attributes_sample:
+  - drupal_internal__nid
+  - drupal_internal__vid
+  - langcode
+  - revision_timestamp
+  - revision_log
+  - status
+  - title
+  - created
+  - changed
+  - promote
+  - sticky
+  - default_langcode
+  relationships:
+  - node_type
+  - revision_uid
+  - uid
+  - menu_link
+  - field_attachments
+  - field_working_groups
+- name: node--cfo_council
+  description: The main page for the Chief FOIA Officers Council.  Assign committees to the council.  Meetings will
+    be automatically attached.
+  attribute_count: 22
+  attributes_sample:
+  - drupal_internal__nid
+  - drupal_internal__vid
+  - langcode
+  - revision_timestamp
+  - revision_log
+  - status
+  - title
+  - created
+  - changed
+  - promote
+  - sticky
+  - default_langcode
+  relationships:
+  - node_type
+  - revision_uid
+  - uid
+  - menu_link
+  - field_council_committees
+- name: node--cfo_page
+  description: Pages for the Chief FOIA Officers Council.  CFO Pages have title, body, and URL slug fields.  They
+    are available via a JSON feed.
+  attribute_count: 23
+  attributes_sample:
+  - drupal_internal__nid
+  - drupal_internal__vid
+  - langcode
+  - revision_timestamp
+  - revision_log
+  - status
+  - title
+  - created
+  - changed
+  - promote
+  - sticky
+  - default_langcode
+  relationships:
+  - node_type
+  - revision_uid
+  - uid
+  - menu_link
+  - field_attachments
+- name: paragraph--working_groups
+  description: Describes the payload for 'paragraph' entities of the 'working_groups' bundle.
+  attribute_count: 14
+  attributes_sample:
+  - drupal_internal__id
+  - drupal_internal__revision_id
+  - langcode
+  - status
+  - created
+  - parent_id
+  - parent_type
+  - parent_field_name
+  - behavior_settings
+  - default_langcode
+  - revision_default
+  - revision_translation_affected
+  relationships:
+  - paragraph_type
+  - field_attachments
+- name: paragraph--admin_app_via
+  description: Describes the payload for 'paragraph' entities of the 'admin_app_via' bundle.
+  attribute_count: 4
+  attributes_sample:
+  - field_app_pend_end_yr
+  - field_app_pend_start_yr
+  - field_app_processed_yr
+  - field_app_received_yr
+  relationships:
+  - field_agency_component
+- name: paragraph--link_or_file
+  description: Describes the payload for 'paragraph' entities of the 'link_or_file' bundle.
+  attribute_count: 14
+  attributes_sample:
+  - drupal_internal__id
+  - drupal_internal__revision_id
+  - langcode
+  - status
+  - created
+  - parent_id
+  - parent_type
+  - parent_field_name
+  - behavior_settings
+  - default_langcode
+  - revision_default
+  - revision_translation_affected
+  relationships:
+  - paragraph_type
+  - field_link_file
+- name: paragraph--attachments
+  description: Describes the payload for 'paragraph' entities of the 'attachments' bundle.
+  attribute_count: 13
+  attributes_sample:
+  - drupal_internal__id
+  - drupal_internal__revision_id
+  - langcode
+  - status
+  - created
+  - parent_id
+  - parent_type
+  - parent_field_name
+  - behavior_settings
+  - default_langcode
+  - revision_default
+  - revision_translation_affected
+  relationships:
+  - paragraph_type
+  - field_attachment
+- name: taxonomy_term--agency
+  description: Describes the payload for 'taxonomy_term' entities of the 'agency' bundle.
+  attribute_count: 11
+  attributes_sample:
+  - drupal_internal__tid
+  - drupal_internal__revision_id
+  - revision_created
+  - revision_log_message
+  - status
+  - name
+  - description
+  - revision_default
+  - revision_translation_affected
+  - metatag
+  - abbreviation
+  relationships:
+  - revision_user
+  - category
+relationships:
+- from: node--agency_component
+  relationship: has_one_or_many
+  to: agency
+  via: data.relationships.agency
+  binding: JSON:API relationship object (resource linkage)
+- from: node--agency_component
+  relationship: has_one_or_many
+  to: foia_officers
+  via: data.relationships.foia_officers
+  binding: JSON:API relationship object (resource linkage)
+- from: node--agency_component
+  relationship: has_one_or_many
+  to: field_misc
+  via: data.relationships.field_misc
+  binding: JSON:API relationship object (resource linkage)
+- from: node--agency_component
+  relationship: has_one_or_many
+  to: public_liaisons
+  via: data.relationships.public_liaisons
+  binding: JSON:API relationship object (resource linkage)
+- from: node--agency_component
+  relationship: has_one_or_many
+  to: paper_receiver
+  via: data.relationships.paper_receiver
+  binding: JSON:API relationship object (resource linkage)
+- from: node--agency_component
+  relationship: has_one_or_many
+  to: request_form
+  via: data.relationships.request_form
+  binding: JSON:API relationship object (resource linkage)
+- from: node--agency_component
+  relationship: has_one_or_many
+  to: service_centers
+  via: data.relationships.service_centers
+  binding: JSON:API relationship object (resource linkage)
+- from: paragraph--agenda_item
+  relationship: has_one_or_many
+  to: paragraph_type
+  via: data.relationships.paragraph_type
+  binding: JSON:API relationship object (resource linkage)
+- from: node--quarterly_foia_report_data
+  relationship: has_one_or_many
+  to: field_agency
+  via: data.relationships.field_agency
+  binding: JSON:API relationship object (resource linkage)
+- from: node--quarterly_foia_report_data
+  relationship: has_one_or_many
+  to: field_agency_components
+  via: data.relationships.field_agency_components
+  binding: JSON:API relationship object (resource linkage)
+- from: node--quarterly_foia_report_data
+  relationship: has_one_or_many
+  to: field_quarterly_component_data
+  via: data.relationships.field_quarterly_component_data
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_admin_app_via
+  via: data.relationships.field_admin_app_via
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_admin_app_vib
+  via: data.relationships.field_admin_app_vib
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_admin_app_vic1
+  via: data.relationships.field_admin_app_vic1
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_admin_app_vic2
+  via: data.relationships.field_admin_app_vic2
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_admin_app_vic3
+  via: data.relationships.field_admin_app_vic3
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_admin_app_vic4
+  via: data.relationships.field_admin_app_vic4
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_admin_app_vic5
+  via: data.relationships.field_admin_app_vic5
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_admin_app_viie
+  via: data.relationships.field_admin_app_viie
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_agency
+  via: data.relationships.field_agency
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_agency_components
+  via: data.relationships.field_agency_components
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_fees_x
+  via: data.relationships.field_fees_x
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_pers_costs_ix
+  via: data.relationships.field_foia_pers_costs_ix
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_requests_va
+  via: data.relationships.field_foia_requests_va
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_requests_vb1
+  via: data.relationships.field_foia_requests_vb1
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_requests_vb2
+  via: data.relationships.field_foia_requests_vb2
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_requests_vb3
+  via: data.relationships.field_foia_requests_vb3
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_xiia
+  via: data.relationships.field_foia_xiia
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_xiib
+  via: data.relationships.field_foia_xiib
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_xiic
+  via: data.relationships.field_foia_xiic
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_xiid1
+  via: data.relationships.field_foia_xiid1
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_xiid2
+  via: data.relationships.field_foia_xiid2
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_xiie1
+  via: data.relationships.field_foia_xiie1
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_foia_xiie2
+  via: data.relationships.field_foia_xiie2
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_pending_requests_vii_d_
+  via: data.relationships.field_pending_requests_vii_d_
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_proc_req_viia
+  via: data.relationships.field_proc_req_viia
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_proc_req_viib
+  via: data.relationships.field_proc_req_viib
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_proc_req_viic1
+  via: data.relationships.field_proc_req_viic1
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_proc_req_viic2
+  via: data.relationships.field_proc_req_viic2
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_proc_req_viic3
+  via: data.relationships.field_proc_req_viic3
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_report_files
+  via: data.relationships.field_report_files
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_req_viiia
+  via: data.relationships.field_req_viiia
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_req_viiib
+  via: data.relationships.field_req_viiib
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_statute_iv
+  via: data.relationships.field_statute_iv
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_sub_xia
+  via: data.relationships.field_sub_xia
+  binding: JSON:API relationship object (resource linkage)
+- from: node--annual_foia_report_data
+  relationship: has_one_or_many
+  to: field_sub_xib
+  via: data.relationships.field_sub_xib
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_meeting
+  relationship: has_one_or_many
+  to: node_type
+  via: data.relationships.node_type
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_meeting
+  relationship: has_one_or_many
+  to: revision_uid
+  via: data.relationships.revision_uid
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_meeting
+  relationship: has_one_or_many
+  to: uid
+  via: data.relationships.uid
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_meeting
+  relationship: has_one_or_many
+  to: menu_link
+  via: data.relationships.menu_link
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_meeting
+  relationship: has_one_or_many
+  to: field_meeting_agenda
+  via: data.relationships.field_meeting_agenda
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_meeting
+  relationship: has_one_or_many
+  to: field_meeting_documents
+  via: data.relationships.field_meeting_documents
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_meeting
+  relationship: has_one_or_many
+  to: field_meeting_materials
+  via: data.relationships.field_meeting_materials
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_committee
+  relationship: has_one_or_many
+  to: node_type
+  via: data.relationships.node_type
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_committee
+  relationship: has_one_or_many
+  to: revision_uid
+  via: data.relationships.revision_uid
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_committee
+  relationship: has_one_or_many
+  to: uid
+  via: data.relationships.uid
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_committee
+  relationship: has_one_or_many
+  to: menu_link
+  via: data.relationships.menu_link
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_committee
+  relationship: has_one_or_many
+  to: field_attachments
+  via: data.relationships.field_attachments
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_committee
+  relationship: has_one_or_many
+  to: field_working_groups
+  via: data.relationships.field_working_groups
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_council
+  relationship: has_one_or_many
+  to: node_type
+  via: data.relationships.node_type
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_council
+  relationship: has_one_or_many
+  to: revision_uid
+  via: data.relationships.revision_uid
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_council
+  relationship: has_one_or_many
+  to: uid
+  via: data.relationships.uid
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_council
+  relationship: has_one_or_many
+  to: menu_link
+  via: data.relationships.menu_link
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_council
+  relationship: has_one_or_many
+  to: field_council_committees
+  via: data.relationships.field_council_committees
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_page
+  relationship: has_one_or_many
+  to: node_type
+  via: data.relationships.node_type
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_page
+  relationship: has_one_or_many
+  to: revision_uid
+  via: data.relationships.revision_uid
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_page
+  relationship: has_one_or_many
+  to: uid
+  via: data.relationships.uid
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_page
+  relationship: has_one_or_many
+  to: menu_link
+  via: data.relationships.menu_link
+  binding: JSON:API relationship object (resource linkage)
+- from: node--cfo_page
+  relationship: has_one_or_many
+  to: field_attachments
+  via: data.relationships.field_attachments
+  binding: JSON:API relationship object (resource linkage)
+- from: paragraph--working_groups
+  relationship: has_one_or_many
+  to: paragraph_type
+  via: data.relationships.paragraph_type
+  binding: JSON:API relationship object (resource linkage)
+- from: paragraph--working_groups
+  relationship: has_one_or_many
+  to: field_attachments
+  via: data.relationships.field_attachments
+  binding: JSON:API relationship object (resource linkage)
+- from: paragraph--admin_app_via
+  relationship: has_one_or_many
+  to: field_agency_component
+  via: data.relationships.field_agency_component
+  binding: JSON:API relationship object (resource linkage)
+- from: paragraph--link_or_file
+  relationship: has_one_or_many
+  to: paragraph_type
+  via: data.relationships.paragraph_type
+  binding: JSON:API relationship object (resource linkage)
+- from: paragraph--link_or_file
+  relationship: has_one_or_many
+  to: field_link_file
+  via: data.relationships.field_link_file
+  binding: JSON:API relationship object (resource linkage)
+- from: paragraph--attachments
+  relationship: has_one_or_many
+  to: paragraph_type
+  via: data.relationships.paragraph_type
+  binding: JSON:API relationship object (resource linkage)
+- from: paragraph--attachments
+  relationship: has_one_or_many
+  to: field_attachment
+  via: data.relationships.field_attachment
+  binding: JSON:API relationship object (resource linkage)
+- from: taxonomy_term--agency
+  relationship: has_one_or_many
+  to: revision_user
+  via: data.relationships.revision_user
+  binding: JSON:API relationship object (resource linkage)
+- from: taxonomy_term--agency
+  relationship: has_one_or_many
+  to: category
+  via: data.relationships.category
+  binding: JSON:API relationship object (resource linkage)
+note: Relationship rows are JSON:API resource-linkage members declared in the contract; the spec does not state
+  cardinality per member, so each is recorded as has_one_or_many rather than guessed.

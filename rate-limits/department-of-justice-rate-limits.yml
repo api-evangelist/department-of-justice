@@ -4,113 +4,98 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Department of Justice
 providerId: department-of-justice
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Bureau of Justice Statistics
-  - Crime
-  - Federal Government
-  - FOIA
-  - Justice
-  - News
-  - Open Data
-  - Press Releases
-  - Statistics
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Department of Justice API surface. Captures
-  per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values
-  to be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+modified: '2026-09-06'
+generated: '2026-09-06'
+method: searched
+source: >-
+  Read from the provider's own documentation and confirmed against live anonymous responses on
+  2026-09-06: https://www.justice.gov/developer/api-documentation/api_v1 (DOJ News API),
+  https://api.data.gov/docs/developer-manual/ (the gateway that fronts api.foia.gov and issues its
+  keys), and https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api. Supersedes the
+  2026-05-04 scaffold, whose per-key quotas and X-RateLimit-* headers were bulk-sweep defaults
+  that DOJ does not in fact publish.
+tags: [Rate Limiting, Quotas, Throttling, Federal Government]
+description: >-
+  Published rate limits across the DOJ API surface. Limits are not uniform and are not set by DOJ
+  in every case: the FOIA Portal's limits belong to the shared federal api.data.gov gateway, while
+  the DOJ News API states a threshold in prose with no header and no documented status code.
+limit_count: 4
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - DOJ News API
-      - FOIA.gov Annual Report API
-      - BJS National Crime Victimization Survey (NCVS) API
-      - BJS NIBRS National Estimates API
-      - DOJ Open Data Catalog
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+  - api: DOJ News API
+    scope: per-IP
+    metric: requests_per_second
+    limit: 4
+    window: second
+    burst: null
+    enforcement: >-
+      Stated as a soft threshold, not a hard one. The documentation says "Individual users issuing
+      more than 4 requests per second will experience degraded performance and may be blocked
+      entirely." Neither the degraded-performance response nor the block is given a status code.
+    status_on_exhaustion: undocumented
+    headers: []
+    headers_note: >-
+      No rate-limit headers. A live 200 on
+      https://www.justice.gov/api/v1/press_releases.json?pagesize=1 (2026-09-06) returned only
+      server: nginx and an x-request-id correlation header — no X-RateLimit-*, no RateLimit-*, no
+      Retry-After.
+    source: https://www.justice.gov/developer/api-documentation/api_v1
+  - api: DOJ News API
+    scope: per-request
+    metric: records_per_page
+    limit: 50
+    default: 20
+    window: request
+    enforcement: >-
+      Hard cap, applied by clamping rather than rejecting: "If you request a pagesize that is
+      larger than 50, you will receive a response with no more than 50 results." A client asking
+      for 500 gets 50 and a 200, with no signal that it was truncated.
+    status_on_exhaustion: none (silently clamped)
+    source: https://www.justice.gov/developer/api-documentation/api_v1
+  - api: National FOIA Portal JSON:API
+    scope: per-api-key
+    metric: requests_per_hour
     limit: 1000
-    timeFrame: month
-    applies:
-      - DOJ News API
-      - FOIA.gov Annual Report API
-      - BJS National Crime Victimization Survey (NCVS) API
-      - BJS NIBRS National Estimates API
-      - DOJ Open Data Catalog
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - DOJ News API
-      - FOIA.gov Annual Report API
-      - BJS National Crime Victimization Survey (NCVS) API
-      - BJS NIBRS National Estimates API
-      - DOJ Open Data Catalog
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - DOJ News API
-      - FOIA.gov Annual Report API
-      - BJS National Crime Victimization Survey (NCVS) API
-      - BJS NIBRS National Estimates API
-      - DOJ Open Data Catalog
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - DOJ News API
-      - FOIA.gov Annual Report API
-      - BJS National Crime Victimization Survey (NCVS) API
-      - BJS NIBRS National Estimates API
-      - DOJ Open Data Catalog
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+    window: hour
+    enforcement: >-
+      Enforced by the api.data.gov gateway, not by DOJ. Counters reset on a rolling basis;
+      exceeding the limit temporarily blocks the key, and the block lifts automatically after an
+      hour. A key holder who needs more is told to contact the agency that owns the API.
+    status_on_exhaustion: 429
+    headers:
+      - X-RateLimit-Limit
+      - X-RateLimit-Remaining
+    headers_note: >-
+      Documented by api.data.gov and returned on every response — the only DOJ-reachable surface
+      that gives an agent a runtime budget signal. A keyless request returns 403 with
+      {"error":{"code":"API_KEY_MISSING"}} and an x-api-umbrella-request-id header
+      (observed live 2026-09-06).
+    source: https://api.data.gov/docs/developer-manual/
+  - api: National FOIA Portal JSON:API (DEMO_KEY)
+    scope: per-IP
+    metric: requests_per_hour
+    limit: 30
+    secondary:
+      metric: requests_per_day
+      limit: 50
+    window: hour
+    enforcement: >-
+      The shared DEMO_KEY documented for exploration carries much lower limits than an issued key.
+    status_on_exhaustion: 429
+    headers: [X-RateLimit-Limit, X-RateLimit-Remaining]
+    source: https://api.data.gov/docs/developer-manual/
+undocumented:
+  - api: BJS NCVS / NIBRS National Estimates
+    note: >-
+      No rate limit published on either API page. The only published cap is a result cap, not a
+      request cap: the API "returns a maximum of 1,000 records" by default, raised with a Socrata
+      $limit parameter (the docs' own example uses $limit=200000). A live HEAD returned 405 from
+      the WSO2 gateway with no rate-limit headers; a live GET returned 200 with none either.
+    source: https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api
+  - api: FARA e-File Registrant feed
+    note: >-
+      No published limits and no developer documentation. Served through Cloudflare; a live 200 on
+      https://efile.fara.gov/api/v1/Registrants/json/Active returned no rate-limit headers.
+  - api: DOJ Open Data Catalog
+    note: >-
+      catalog.data.gov is operated by GSA, not DOJ. Its robots.txt declares Crawl-Delay: 10; no
+      API rate limit is published.

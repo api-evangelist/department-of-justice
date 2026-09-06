@@ -1,0 +1,52 @@
+specification: API Commons Packages
+specificationVersion: '0.1'
+provider: Department of Justice
+providerId: department-of-justice
+generated: '2026-09-06'
+method: searched
+source: >-
+  Searched npm (registry.npmjs.org exact-name lookups), PyPI, CRAN/crandb.r-pkg.org, RubyGems,
+  crates.io and the DOJ, FOIA.gov and BJS developer pages for first-party client libraries. DOJ
+  publishes no SDK of its own on any registry; the one maintained client library found is a
+  third-party R package.
+description: >-
+  Client libraries for the Department of Justice API surface. The Department publishes no
+  first-party SDK in any package registry — the DOJ Developer Resources page, the justice.gov
+  api_v1 documentation, the FOIA.gov developer page and the BJS NCVS/NIBRS API pages all
+  document raw HTTP calls only. The single actively maintained client is the community R
+  package `usdoj`, published on CRAN by rOpenGov, which wraps the DOJ News API.
+official_sdk_count: 0
+package_count: 1
+packages:
+  - name: usdoj
+    registry: cran
+    language: R
+    official: false
+    url: https://cran.r-project.org/package=usdoj
+    repository: https://github.com/rOpenGov/usdoj
+    version: 1.1.2
+    published: '2025-05-14'
+    covers:
+      - DOJ News API
+    maintainer: Steph Buongiorno (rOpenGov)
+    note: >-
+      Third-party, not published by the Department of Justice. Wraps
+      https://www.justice.gov/developer/api-documentation/api_v1 for press releases, blog
+      entries and speeches. Version and publication date read from
+      https://crandb.r-pkg.org/usdoj on 2026-09-06; the GitHub source repository was last
+      pushed 2026-07-17, so the library is maintained ahead of its last CRAN release.
+absent:
+  - registry: npm
+    note: 'No first-party package. Exact-name lookups on registry.npmjs.org for usdoj, foia-gov and doj-news all returned 404 on 2026-09-06.'
+  - registry: pypi
+    note: 'No first-party package. Exact-name lookups on pypi.org for foia-api, pyfoia and fara-api all returned 404 on 2026-09-06.'
+  - registry: rubygems
+    note: No first-party package found.
+  - registry: maven
+    note: No first-party package found.
+  - registry: nuget
+    note: No first-party package found.
+  - registry: crates.io
+    note: No first-party package found.
+  - registry: pkg.go.dev
+    note: No first-party package found.

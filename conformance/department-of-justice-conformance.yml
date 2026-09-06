@@ -1,0 +1,125 @@
+specification: API Commons Conformance
+specificationVersion: '0.1'
+provider: Department of Justice
+providerId: department-of-justice
+generated: '2026-09-06'
+method: searched
+source: >-
+  Read from the contract and the provider's own developer pages: the FOIA Portal Swagger
+  (openapi/department-of-justice-foia-api-swagger.json), https://www.foia.gov/developer/,
+  https://www.justice.gov/developer/api-documentation/api_v1, and the DCAT-US catalog served at
+  https://www.justice.gov/data.json. Every entry below cites the exact location that declares it.
+conformance:
+  - id: jsonapi
+    name: JSON:API 1.0
+    conforms: true
+    evidence: >-
+      The FOIA Portal contract declares consumes and produces application/vnd.api+json, and every
+      definition is shaped as a JSON:API document ({data:{type,id,attributes,relationships}}).
+      https://www.foia.gov/developer/ states plainly: "This API follows the JSON API standard and
+      leverages the Drupal JSON API module."
+    evidence_url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+    scope: National FOIA Portal JSON:API
+  - id: niem
+    name: National Information Exchange Model (NIEM)
+    conforms: true
+    evidence: >-
+      DOMAIN STANDARD. The FOIA Annual Report XML schema — the exchange every federal agency uses
+      to file its annual FOIA report — is a NIEM IEPD. https://www.foia.gov/developer/ states the
+      schema "conforms to the NIEM standard (http://niem.gov)" and publishes the IEPD package with
+      the extension schema at exchange_files/schema/extension/FoiaAnnualReportExtensions.xsd over
+      a NIEM subset at exchange_files/schema/Subset/niem/. The contract serves the conforming
+      documents at GET /annual-report-xml/{agency}/{year}.
+    evidence_url: https://www.foia.gov/developer/
+    scope: FOIA Annual Report XML exchange
+  - id: dcat-us-1.1
+    name: DCAT-US 1.1 / Project Open Data
+    conforms: true
+    evidence: >-
+      DOMAIN STANDARD. https://www.justice.gov/data.json is a dcat:Catalog of 3,267 DOJ datasets
+      that declares @context https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld,
+      describedBy https://project-open-data.cio.gov/v1.1/schema and conformsTo
+      https://project-open-data.cio.gov/v1.1/schema/catalog.json. Fetched 2026-09-06, HTTP 200,
+      10.4 MB. Entries carry dcat:Dataset, org:Organization publishers with DOJ as
+      subOrganizationOf, vcard:Contact contactPoint, bureauCode and programCode.
+    evidence_url: https://www.justice.gov/data.json
+    scope: DOJ Open Data Catalog
+  - id: uuid-identifiers
+    name: RFC 4122 UUID resource identifiers
+    conforms: true
+    evidence: >-
+      Both public JSON surfaces key resources by UUID: the FOIA contract declares
+      data.id format uuid maxLength 128, and the DOJ News API returns a "uuid" field the
+      documentation names as the unique identifier field.
+    evidence_url: https://www.justice.gov/developer/api-documentation/api_v1
+    scope: FOIA Portal, DOJ News API
+  - id: pagination
+    name: Documented pagination
+    conforms: true
+    evidence: >-
+      DOJ News API documents page (zero-based) and pagesize with a default of 20 and a hard
+      maximum of 50. BJS NCVS/NIBRS document a default cap of 1,000 records raised with a Socrata
+      $limit parameter. The FOIA Portal exposes JSON:API page[limit]/page[offset] through the
+      Drupal JSON:API module.
+    evidence_url: https://www.justice.gov/developer/api-documentation/api_v1
+    scope: all public surfaces
+  - id: rfc9457
+    name: RFC 9457 Problem Details
+    conforms: false
+    evidence: >-
+      No operation in the FOIA contract declares application/problem+json, and no DOJ host returns
+      one. Three different error envelopes were observed on 2026-09-06: a JSON {error:{code,message}}
+      from the api.data.gov gateway, a Drupal HTML page from www.justice.gov/api/v1, and a WSO2
+      Synapse XML fault from api.ojp.gov.
+    evidence_url: https://api.foia.gov/api/agency_components
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: false
+    evidence: >-
+      No OAuth anywhere. The only declared scheme is an apiKey in the X-API-Key header issued by
+      api.data.gov. /.well-known/oauth-authorization-server and /.well-known/openid-configuration
+      returned 404 on all eight probed hosts, 2026-09-06.
+    evidence_url: https://api.foia.gov/.well-known/oauth-authorization-server
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: '/.well-known/openid-configuration returned 404 on all eight probed hosts, 2026-09-06.'
+    evidence_url: https://www.justice.gov/.well-known/openid-configuration
+  - id: idempotency
+    name: Idempotency keys
+    conforms: false
+    evidence: >-
+      Not applicable rather than missing — every published DOJ operation is a GET. There is no
+      write surface for an idempotency key to protect.
+    evidence_url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+  - id: odata
+    name: OData
+    conforms: false
+    evidence: No $metadata surface on any DOJ host; the BJS datasets use Socrata SoQL ($limit), not OData.
+    evidence_url: https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api
+  - id: openapi
+    name: OpenAPI 3.x
+    conforms: false
+    evidence: >-
+      The one published contract is Swagger 2.0, not OpenAPI 3. It has been neither migrated nor
+      supplemented; probes for /openapi.json, /openapi.yaml, /swagger.json, /api-docs and
+      /v1/openapi.json on www.justice.gov, www.foia.gov, api.foia.gov and bjs.ojp.gov all
+      returned 404 or an HTML shell on 2026-09-06.
+    evidence_url: https://www.foia.gov/swagger.html
+compliance:
+  regime: us-federal-government
+  note: >-
+    DOJ is a U.S. federal executive department, so its obligations are statutory rather than
+    certificatory: the Freedom of Information Act (5 U.S.C. 552) and the OPEN Government Data Act
+    (Title II of the Foundations for Evidence-Based Policymaking Act) are what produce the FOIA
+    Annual Report exchange and the data.json catalog respectively. No SOC 2, ISO 27001, PCI or
+    FedRAMP authorization is published for these public read-only surfaces, and none would be
+    expected. Probed for a trust center and a vulnerability disclosure program on 2026-09-06:
+    neither found.
+  statutes:
+    - name: Freedom of Information Act (5 U.S.C. 552)
+      realized_by: FOIA Annual Report XML exchange (NIEM IEPD), National FOIA Portal JSON:API
+      url: https://www.foia.gov/developer/
+    - name: OPEN Government Data Act / Project Open Data
+      realized_by: https://www.justice.gov/data.json (DCAT-US 1.1, 3,267 datasets)
+      url: https://www.justice.gov/data

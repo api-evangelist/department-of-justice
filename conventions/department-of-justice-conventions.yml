@@ -1,0 +1,122 @@
+specification: API Commons Conventions
+specificationVersion: '0.1'
+provider: Department of Justice
+providerId: department-of-justice
+generated: '2026-09-06'
+method: searched
+source: >-
+  Read from https://www.justice.gov/developer/api-documentation/api_v1,
+  https://www.foia.gov/developer/, https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api,
+  https://bjs.ojp.gov/national-incident-based-reporting-system-nibrs-national-estimates-api and the
+  FOIA Portal Swagger contract, and confirmed against live anonymous responses on 2026-09-06.
+scope_note: >-
+  DOJ has no single API programme. Five surfaces run on four different stacks — Drupal on
+  justice.gov, Drupal + the api.data.gov gateway on api.foia.gov, a WSO2 gateway over Socrata on
+  api.ojp.gov, Oracle ORDS on efile.fara.gov, and a GSA-operated CKAN successor on
+  catalog.data.gov. Almost nothing below is uniform across them, and that is the finding.
+authentication:
+  style: mixed
+  detail: >-
+    DOJ News API, BJS NCVS/NIBRS and the FARA e-File feed are open — no key, no header, verified
+    with anonymous 200s on 2026-09-06. The National FOIA Portal requires an api.data.gov key sent
+    as X-API-Key (or an api_key query parameter); a request without one returns 403
+    API_KEY_MISSING. See authentication/department-of-justice-authentication.yml.
+pagination:
+  style: per-surface
+  surfaces:
+    - api: DOJ News API
+      params: [page, pagesize]
+      page_base: 0
+      default_size: 20
+      max_size: 50
+      overflow_behavior: 'A pagesize above 50 is silently clamped to 50 rather than rejected.'
+      response_fields: metadata.resultset.count, metadata.resultset.pagesize, metadata.resultset.page
+      source: https://www.justice.gov/developer/api-documentation/api_v1
+    - api: National FOIA Portal JSON:API
+      params: ['page[limit]', 'page[offset]']
+      style: JSON:API page family via the Drupal JSON:API module
+      response_fields: links.next, links.prev, meta
+      source: https://www.foia.gov/developer/
+    - api: BJS NCVS / NIBRS
+      params: ['$limit', '$offset']
+      default_size: 1000
+      note: >-
+        Socrata SoQL parameters. The documentation warns that every NCVS dataset holds more than
+        1,000 rows for any single year, so the default silently truncates a naive query.
+      source: https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api
+sparse_fields:
+  supported: true
+  detail: >-
+    Both JSON surfaces support field selection. DOJ News API takes a comma-separated `fields`
+    parameter and returns all fields when it is omitted. The FOIA Portal takes JSON:API
+    fields[<type>] and include, e.g.
+    ?include=agency&fields[agency]=name,abbreviation&fields[agency_component]=title,abbreviation,agency.
+filtering:
+  detail: >-
+    DOJ News API uses a bracketed parameters array — parameters[title]="Chicago",
+    parameters[date]=1231243200 — with dates as Unix epoch seconds. Sorting is `sort` plus
+    `direction` (ASC/DESC) over fields such as changed, created and date. The FOIA Portal uses
+    JSON:API filter[]. BJS uses SoQL query parameters.
+content_negotiation:
+  detail: >-
+    Format is chosen by file extension, not by Accept header, on three of the five surfaces:
+    /api/v1/press_releases.json on DOJ News, gcuy-rt5g.json vs gcuy-rt5g.csv on BJS, and
+    /api/v1/Registrants/json/Active on FARA. The FOIA Portal is the exception and negotiates
+    application/vnd.api+json properly.
+  media_types: [application/json, 'application/vnd.api+json', text/csv, application/xml]
+metadata_envelope:
+  detail: >-
+    DOJ News wraps every response in {metadata:{responseInfo:{status},resultset:{count,pagesize,page},
+    executionTime}, results:[...]} — note that responseInfo.status repeats the HTTP status inside
+    the body. The FOIA Portal uses the JSON:API document envelope. BJS returns a bare JSON array
+    with no envelope at all.
+request_id:
+  supported: false
+  detail: No correlation or request-id header is documented or returned on any surface.
+versioning:
+  detail: See lifecycle/department-of-justice-lifecycle.yml. Path segment on three surfaces, none declared on the FOIA Portal.
+error_envelope:
+  detail: >-
+    Three incompatible shapes across four hosts, none of them RFC 9457. See
+    errors/department-of-justice-problem-types.yml.
+rate_limit_signaling:
+  headers_published: false
+  detail: >-
+    No X-RateLimit-* or RateLimit-* headers are documented on any DOJ-operated surface. The DOJ
+    News API states a threshold in prose only ("more than 4 requests per second will experience
+    degraded performance and may be blocked entirely") with no header and no documented status
+    code on exhaustion. The FOIA Portal inherits api.data.gov's limits and headers, which DOJ does
+    not document. See rate-limits/department-of-justice-rate-limits.yml.
+idempotency:
+  coverage: na
+  scope: []
+  mechanism: none
+  detail: >-
+    Not applicable. Every published DOJ operation is a GET — all 24 in the FOIA contract, both
+    documented DOJ News resources, every BJS dataset resource and the FARA feed. There is no
+    mutating surface for an idempotency key to protect, so `na` rather than `none`.
+dry_run_mode:
+  supported: na
+  detail: Not applicable — read-only API surface, nothing to rehearse.
+reversibility:
+  grade: na
+  detail: >-
+    Not applicable. The Department publishes no write operation on any of its five API surfaces,
+    so there is no action for a consumer to take back and no reversal window to state. Confirmed
+    against the contract (0 non-GET operations in
+    openapi/department-of-justice-foia-api-swagger.json) and against the documented resource lists
+    for the DOJ News, BJS, FARA and Open Data surfaces.
+  write_surfaces: []
+  note: >-
+    The National FOIA Portal front end does submit FOIA requests to agencies, but that submission
+    path is not exposed in the public contract — the published API is the read side only
+    (agency components, agency taxonomy, annual and quarterly reports, CFO Council content). If
+    DOJ ever publishes the request-submission operation, reversibility becomes a live question,
+    because a filed FOIA request is not something a consumer can withdraw through this API.
+cross_links:
+  authentication: authentication/department-of-justice-authentication.yml
+  errors: errors/department-of-justice-problem-types.yml
+  lifecycle: lifecycle/department-of-justice-lifecycle.yml
+  rate_limits: rate-limits/department-of-justice-rate-limits.yml
+  data_model: data-model/department-of-justice-data-model.yml
+  conformance: conformance/department-of-justice-conformance.yml

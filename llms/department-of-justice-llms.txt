@@ -1,0 +1,74 @@
+# Department of Justice
+
+> The U.S. Department of Justice (DOJ) enforces federal law and defends the interests of the
+> United States. It publishes a small portfolio of public, read-only APIs and machine-readable
+> data catalogs: the DOJ News API for press releases and blog entries, the National FOIA Portal
+> JSON:API on api.foia.gov, the Bureau of Justice Statistics NCVS and NIBRS National Estimates
+> datasets on api.ojp.gov, the FARA e-File registrant feeds, and a DCAT-US 1.1 data catalog at
+> justice.gov/data.json.
+
+Generated 2026-09-06 by API Evangelist from apis.yml and the artifacts in this repository.
+Source of record: https://raw.githubusercontent.com/api-evangelist/department-of-justice/refs/heads/main/apis.yml
+DOJ serves no llms.txt of its own — /llms.txt returned 404 on www.justice.gov, www.foia.gov,
+api.foia.gov, bjs.ojp.gov, api.ojp.gov, catalog.data.gov and efile.fara.gov on 2026-09-06.
+
+## APIs
+
+- [DOJ News API](https://www.justice.gov/developer/api-documentation/api_v1): Press releases and
+  blog entries from the Office of Public Affairs as JSON. Base https://www.justice.gov/api/v1.
+  Documented resources: GET /api/v1/press_releases.json, GET /api/v1/press_releases/[uuid].json,
+  GET /api/v1/blog_entries.json, GET /api/v1/blog_entries/[uuid].json. No API key required.
+- [National FOIA Portal JSON:API](https://www.foia.gov/swagger.html): 24 read operations over
+  agency components, agency taxonomy, annual and quarterly FOIA reports, annual report XML, and
+  Chief FOIA Officers Council meetings, committees, councils and pages. Base
+  https://api.foia.gov/api. Requires an api.data.gov key in an X-API-Key header. Media type
+  application/vnd.api+json (JSON:API).
+- [BJS National Crime Victimization Survey (NCVS) API](https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api):
+  NCVS Select personal and household population and victimization datasets in JSON, CSV and XML.
+  Base https://api.ojp.gov/bjsdataset/v1. Socrata-style resource ids with a $limit parameter.
+- [BJS NIBRS National Estimates API](https://bjs.ojp.gov/national-incident-based-reporting-system-nibrs-national-estimates-api):
+  National incident, offense and victim-level NIBRS estimates. Base
+  https://api.ojp.gov/bjsdataset/v1.
+- [FARA e-File Registrant API](https://www.justice.gov/developer): Foreign Agents Registration Act
+  registrant data. Base https://efile.fara.gov/api/v1.
+- [DOJ Open Data Catalog](https://www.justice.gov/data): 3,267 DOJ datasets described in
+  DCAT-US 1.1 at https://www.justice.gov/data.json, mirrored to Data.gov under the doj-gov
+  organization.
+
+## Contracts and artifacts
+
+- [FOIA API Swagger 2.0](openapi/department-of-justice-foia-api-swagger.json): the only
+  machine-readable contract DOJ publishes, maintained at
+  https://github.com/usdoj/foia.gov/blob/develop/swagger.json and rendered at
+  https://www.foia.gov/swagger.html.
+- [Overlay](overlays/department-of-justice-foia-api-overlay.yaml)
+- [Authentication](authentication/department-of-justice-authentication.yml)
+- [Conventions](conventions/department-of-justice-conventions.yml)
+- [Error catalog](errors/department-of-justice-problem-types.yml)
+- [Lifecycle](lifecycle/department-of-justice-lifecycle.yml)
+- [Rate limits](rate-limits/department-of-justice-rate-limits.yml)
+- [Plans and pricing](plans/department-of-justice-plans-pricing.yml)
+- [Conformance](conformance/department-of-justice-conformance.yml)
+- [Data model](data-model/department-of-justice-data-model.yml)
+- [Packages](packages/department-of-justice-packages.yml)
+- [Domain security](security/department-of-justice-domain-security.yml)
+- [Well-known probe](well-known/department-of-justice-well-known.yml)
+- [MCP candidate](mcp/department-of-justice-mcp.yml)
+- [Agent skills](skills/_index.yml)
+- [Vocabulary](vocabulary/department-of-justice-vocabulary.yml)
+
+## Standards
+
+- JSON:API 1.0 — the FOIA API declares application/vnd.api+json and is built on the Drupal
+  JSON:API module.
+- NIEM — the FOIA Annual Report XML schema conforms to the National Information Exchange Model.
+- DCAT-US 1.1 / Project Open Data — justice.gov/data.json declares
+  conformsTo https://project-open-data.cio.gov/v1.1/schema.
+
+## Not published
+
+- No llms.txt, /.well-known/security.txt, /.well-known/api-catalog, ai-plugin.json, OAuth or
+  OpenID discovery document on any DOJ host (all 404, probed 2026-09-06).
+- No A2A agent card, no MCP server, no GraphQL endpoint, no AsyncAPI or webhook surface.
+- No first-party SDK in any package registry.
+- No dated public changelog, deprecation policy, or status page for any of these APIs.

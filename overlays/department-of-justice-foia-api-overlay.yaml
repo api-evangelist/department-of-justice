@@ -1,0 +1,73 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the National FOIA Portal JSON:API
+  version: 1.0.0
+extends: ../openapi/department-of-justice-foia-api-swagger.json
+x-generated: '2026-09-06'
+x-method: generated
+x-source: >-
+  Written by API Evangelist against the verbatim first-party contract at
+  https://github.com/usdoj/foia.gov/blob/develop/swagger.json (rendered at
+  https://www.foia.gov/swagger.html). The original spec is never mutated; every enhancement
+  below is expressed as an overlay action. Facts asserted here were read from the DOJ and
+  FOIA.gov developer pages or observed in live anonymous probes on 2026-09-06.
+actions:
+  - target: $.info
+    description: >-
+      Record the operator, the docs surface and the fact that the contract declares no version
+      scheme of its own (info.version reads "Versioning not supported").
+    update:
+      x-provider: Department of Justice
+      x-provider-id: department-of-justice
+      x-operator: DOJ Office of Information Policy (OIP)
+      x-contract-source: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+      x-rendered-at: https://www.foia.gov/swagger.html
+      x-developer-docs: https://www.foia.gov/developer/
+      x-versioning: none-declared
+  - target: $
+    description: >-
+      Declare the servers block in OpenAPI 3 terms alongside the Swagger 2 host/basePath, so an
+      agent reading either shape resolves the same origin.
+    update:
+      x-servers:
+        - url: https://api.foia.gov/api
+          description: Production. Fronted by the api.data.gov gateway; every request needs a key.
+  - target: $
+    description: >-
+      Record the standards the contract itself declares, for the conformance artifact to cite.
+    update:
+      x-standards:
+        - id: jsonapi
+          evidence: consumes/produces application/vnd.api+json
+        - id: drupal-jsonapi
+          evidence: https://www.foia.gov/developer/ states the Agency component API leverages the Drupal JSON:API module
+        - id: niem
+          evidence: >-
+            https://www.foia.gov/developer/ states the FOIA Annual Report XML schema conforms to
+            the NIEM standard; the XML is served by GET /annual-report-xml/{agency}/{year}
+  - target: $.securityDefinitions.APIKeyHeader
+    description: >-
+      Name the issuer of the key. The contract says only "apiKey in header X-API-Key"; the key is
+      not issued by DOJ but by the shared federal api.data.gov gateway.
+    update:
+      x-issuer: api.data.gov
+      x-signup: https://www.foia.gov/developer/#api-key-signup
+      x-alternate-transport: api_key query parameter (accepted by the gateway)
+      x-missing-key-response: 'HTTP 403 {"error":{"code":"API_KEY_MISSING"}}'
+  - target: $
+    description: >-
+      Attach the published rate limits. The contract declares none; api.data.gov applies its
+      default limits to every key it issues.
+    update:
+      x-rate-limits:
+        source: https://api.data.gov/docs/rate-limits/
+        note: >-
+          Enforced by the api.data.gov gateway, not by DOJ. Recorded in
+          rate-limits/department-of-justice-rate-limits.yml.
+  - target: $
+    description: >-
+      Mark the whole surface read-only. Every one of the 24 operations is a GET, which is what
+      makes idempotency, dry-run and reversibility not-applicable for this API.
+    update:
+      x-write-operations: 0
+      x-read-only: true

@@ -1,0 +1,87 @@
+generated: '2026-09-06'
+method: searched
+provider: Department of Justice
+providerId: department-of-justice
+source: >-
+  Derived from openapi/department-of-justice-foia-api-swagger.json, then upgraded from the
+  provider's own auth documentation at https://www.foia.gov/developer/ and the gateway manual at
+  https://api.data.gov/docs/developer-manual/, and confirmed against live anonymous responses on
+  every DOJ API host on 2026-09-06.
+docs: https://www.foia.gov/developer/
+summary:
+  types: [apiKey, none]
+  api_key_in: [header, query]
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  note: >-
+    DOJ operates two auth postures side by side. Most of its public data is unauthenticated. Only
+    the National FOIA Portal requires a credential, and that credential is not issued by DOJ — it
+    is a shared federal api.data.gov key that works across every participating agency.
+schemes:
+  - name: APIKeyHeader
+    type: apiKey
+    in: header
+    parameter: X-API-Key
+    applies_to: National FOIA Portal JSON:API (https://api.foia.gov/api)
+    issuer: api.data.gov (GSA)
+    signup: https://www.foia.gov/developer/#api-key-signup
+    key_shape: 40-character opaque string
+    alternates:
+      - in: query
+        parameter: api_key
+        note: 'Accepted by the gateway; the FOIA docs use it in their own curl examples.'
+      - in: header
+        parameter: Authorization
+        scheme: basic
+        note: >-
+          api.data.gov also accepts the key as the HTTP basic-auth username with an empty
+          password. Documented by the gateway, not by DOJ.
+    missing_credential_response:
+      status: 403
+      body: '{"error":{"code":"API_KEY_MISSING","message":"No api_key was supplied. Get one at https://api.data.gov/signup/"}}'
+      evidence: 'https://api.foia.gov/api/agency_components probed 2026-09-06'
+    shared_test_credential:
+      published: true
+      note: >-
+        The contract's info.description publishes a working test api_key inline for the Swagger UI
+        "Authorize" button, and api.data.gov publishes a shared DEMO_KEY. Both are heavily rate
+        limited (DEMO_KEY: 30 requests per IP per hour, 50 per day). The literal value is not
+        reproduced in this repository.
+    sources:
+      - openapi/department-of-justice-foia-api-swagger.json
+      - https://www.foia.gov/developer/
+      - https://api.data.gov/docs/developer-manual/
+  - name: None
+    type: none
+    applies_to:
+      - DOJ News API (https://www.justice.gov/api/v1)
+      - BJS NCVS / NIBRS National Estimates (https://api.ojp.gov/bjsdataset/v1)
+      - FARA e-File Registrant feed (https://efile.fara.gov/api/v1)
+      - DOJ Open Data Catalog (https://www.justice.gov/data.json)
+    evidence: >-
+      Anonymous GETs returned 200 on 2026-09-06 for
+      https://www.justice.gov/api/v1/press_releases.json?pagesize=1,
+      https://api.ojp.gov/bjsdataset/v1/r32q-bdaw.json?$limit=1,
+      https://efile.fara.gov/api/v1/Registrants/json/Active and
+      https://www.justice.gov/data.json. No key, header or token of any kind is documented or
+      required.
+absent:
+  - mechanism: OAuth 2.0
+    evidence: '/.well-known/oauth-authorization-server returned 404 on all eight probed hosts, 2026-09-06.'
+  - mechanism: OpenID Connect
+    evidence: '/.well-known/openid-configuration returned 404 on all eight probed hosts, 2026-09-06.'
+  - mechanism: Scopes / permissions
+    evidence: >-
+      No scope model exists. derive-oauth-scopes.py found no oauth2 securityScheme, and no DOJ
+      documentation describes permissions — the api.data.gov key is all-or-nothing across every
+      participating agency API.
+  - mechanism: mTLS
+    evidence: No client-certificate requirement documented on any surface.
+transport_security:
+  https_enforced: true
+  hsts: true
+  note: >-
+    All four DOJ-operated hosts serve TLS 1.3 with HSTS. api.foia.gov returns
+    'strict-transport-security: max-age=31536000; includeSubDomains; preload'. See
+    security/department-of-justice-domain-security.yml.
