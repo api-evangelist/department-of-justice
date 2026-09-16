@@ -61,190 +61,313 @@ kind: government
 position: Producing
 access: Public
 apis:
-  - aid: department-of-justice:doj-news-api
-    name: DOJ News API
-    description: >-
-      The DOJ News API exposes press releases and blog entries from the Office
-      of Public Affairs as a JSON web service. The api_v1 reference documents
-      four resources — list and detail views for press_releases and
-      blog_entries — with field selection, zero-based paging (default 20,
-      maximum 50), sorting, and bracketed filter parameters such as
-      parameters[title] and parameters[date] in Unix epoch seconds. The DOJ
-      Developer Resources page also describes speeches, but no speeches
-      resource is listed in the reference and GET /api/v1/speeches.json
-      returned 404 when probed on 2026-09-06.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.justice.gov/developer/api-documentation/api_v1
-    baseURL: https://www.justice.gov/api/v1
-    tags:
-      - Blog
-      - News
-      - Office of Public Affairs
-      - Press Releases
-      - Speeches
-    properties:
-      - type: Documentation
-        url: https://www.justice.gov/developer/api-documentation/api_v1
-      - type: DeveloperPortal
-        url: https://www.justice.gov/developer
-      - type: X-OpenGovernment
-        url: https://www.justice.gov/open/developer-resources
-      - type: X-GitHubClient
-        url: https://github.com/rOpenGov/usdoj
-    contact:
-      - FN: DOJ Office of Public Affairs
-        url: https://www.justice.gov/contact-us
-  - aid: department-of-justice:foia-annual-report-api
-    name: National FOIA Portal API
-    description: >-
-      The National FOIA Portal publishes a JSON:API web service on
-      api.foia.gov covering agency components, the agency taxonomy, annual and
-      quarterly FOIA report data, and Chief FOIA Officers Council meetings,
-      committees, councils and pages. Its 24 read operations are described by a
-      first-party Swagger 2.0 contract maintained in the usdoj GitHub
-      organization and rendered at foia.gov/swagger.html. The same host also
-      serves each agency's annual FOIA report as XML conforming to the FOIA
-      Annual Report XML schema, a NIEM IEPD. Requests carry a free api.data.gov
-      key in an X-API-Key header.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.foia.gov/developer/
-    baseURL: https://api.foia.gov/api
-    tags:
-      - Annual Report
-      - FOIA
-      - XML
-    properties:
-      - type: Documentation
-        url: https://www.foia.gov/developer/
-      - type: Reference
-        url: https://www.foia.gov/developer/agency-api/
-      - type: OpenAPI
-        url: openapi/department-of-justice-foia-api-swagger.json
-      - type: Overlay
-        url: overlays/department-of-justice-foia-api-overlay.yaml
-      - type: APIReference
-        url: https://www.foia.gov/swagger.html
-      - type: SignUp
-        url: https://www.foia.gov/developer/#api-key-signup
-      - type: SourceCode
-        url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
-    contact:
-      - FN: Office of Information Policy
-        url: https://www.justice.gov/oip
-  - aid: department-of-justice:bjs-ncvs-api
-    name: BJS National Crime Victimization Survey (NCVS) API
-    description: >-
-      The Bureau of Justice Statistics NCVS API provides REST access to the
-      National Crime Victimization Survey datasets. Endpoints expose Personal
-      Victimization, Personal Population, Household Victimization, and
-      Household Population data in JSON and CSV. The API uses a path,
-      resource, and query parameter structure with a default page size of
-      1,000 records.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api
-    baseURL: https://api.ojp.gov/bjsdataset/v1
-    tags:
-      - BJS
-      - Crime
-      - NCVS
-      - Statistics
-      - Victimization
-    properties:
-      - type: Documentation
-        url: https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api
-      - type: X-NCVSProgram
-        url: https://bjs.ojp.gov/data-collection/ncvs
-      - type: X-Featured
-        url: https://bjs.ojp.gov/featured/national-crime-victimization-survey-ncvs-application-programming-interface-api
-      - type: X-DataTools
-        url: https://bjs.ojp.gov/data/data-analysis-tools
-    contact:
-      - FN: Bureau of Justice Statistics
-        url: https://bjs.ojp.gov/about-bjs-website
-  - aid: department-of-justice:bjs-nibrs-api
-    name: BJS NIBRS National Estimates API
-    description: >-
-      The Bureau of Justice Statistics NIBRS National Estimates API provides
-      REST access to the National Incident-Based Reporting System estimates
-      including victimization counts and rates. Endpoints return JSON or CSV
-      and follow a path, resource, query parameter structure with a default
-      page size of 1,000 records.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://bjs.ojp.gov/national-incident-based-reporting-system-nibrs-national-estimates-api
-    baseURL: https://api.ojp.gov/bjsdataset/v1
-    tags:
-      - BJS
-      - Crime
-      - National Estimates
-      - NIBRS
-      - Statistics
-    properties:
-      - type: Documentation
-        url: https://bjs.ojp.gov/national-incident-based-reporting-system-nibrs-national-estimates-api
-      - type: X-NIBRSProgram
-        url: https://bjs.ojp.gov/national-incident-based-reporting-system-nibrs
-      - type: X-Codebook
-        url: https://bjs.ojp.gov/document/nibrs-codebook-supplementary-documentation.pdf
-    contact:
-      - FN: Bureau of Justice Statistics
-        url: https://bjs.ojp.gov/about-bjs-website
-  - aid: department-of-justice:fara-efile-api
-    name: FARA e-File Registrant API
-    description: >-
-      The Foreign Agents Registration Act e-File system exposes registrant data
-      filed under FARA as JSON. The DOJ Developer Resources page describes the
-      FARA.gov API as providing public access to registrations, short-form
-      filings for individual foreign agents, and foreign principals. Only the
-      registrant feeds were reachable when probed on 2026-09-06:
-      /api/v1/Registrants/json/Active and /api/v1/Registrants/json/Terminated
-      both returned 200 without a key, while the ORDS API landing page linked
-      from the DOJ developer page returned 500. There is no published reference
-      documentation for these endpoints.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.justice.gov/developer
-    baseURL: https://efile.fara.gov/api/v1
-    tags:
-      - FARA
-      - Foreign Agents
-      - National Security Division
-      - Registrants
-    properties:
-      - type: Documentation
-        url: https://www.justice.gov/developer
-      - type: X-FARAProgram
-        url: https://www.justice.gov/nsd-fara
-      - type: X-BrowseFilings
-        url: https://efile.fara.gov/ords/fara/f?p=1381:1
-    contact:
-      - FN: DOJ National Security Division, FARA Unit
-        url: https://www.justice.gov/nsd-fara
-  - aid: department-of-justice:doj-open-data-catalog
-    name: DOJ Open Data Catalog
-    description: >-
-      DOJ publishes datasets through the Open Government program and the
-      Department's Data Inventory. Datasets are also surfaced on Data.gov
-      under the doj-gov organization and are accessible via the CKAN-compatible
-      Data.gov API.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.justice.gov/data
-    baseURL: https://catalog.data.gov/api
-    tags:
-      - CKAN
-      - Datasets
-      - Open Data
-    properties:
-      - type: Documentation
-        url: https://www.justice.gov/data
-      - type: X-OpenGovernment
-        url: https://www.justice.gov/open
-      - type: X-DataCatalog
-        url: https://www.justice.gov/data.json
-      - type: X-DataGovCatalogAPI
-        url: https://catalog.data.gov/openapi.json
-    contact:
-      - FN: DOJ Open Data
-        url: https://www.justice.gov/open
+- aid: department-of-justice:doj-news-api
+  name: DOJ News API
+  description: >-
+    The DOJ News API exposes press releases and blog entries from the Office of Public Affairs as a JSON
+    web service. The api_v1 reference documents four resources — list and detail views for press_releases
+    and blog_entries — with field selection, zero-based paging (default 20, maximum 50), sorting, and
+    bracketed filter parameters such as parameters[title] and parameters[date] in Unix epoch seconds.
+    The DOJ Developer Resources page also describes speeches, but no speeches resource is listed in the
+    reference and GET /api/v1/speeches.json returned 404 when probed on 2026-09-06.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.justice.gov/developer/api-documentation/api_v1
+  baseURL: https://www.justice.gov/api/v1
+  tags:
+  - Blog
+  - News
+  - Office of Public Affairs
+  - Press Releases
+  - Speeches
+  properties:
+  - type: Documentation
+    url: https://www.justice.gov/developer/api-documentation/api_v1
+  - type: DeveloperPortal
+    url: https://www.justice.gov/developer
+  - type: X-OpenGovernment
+    url: https://www.justice.gov/open/developer-resources
+  - type: X-GitHubClient
+    url: https://github.com/rOpenGov/usdoj
+  contact:
+  - FN: DOJ Office of Public Affairs
+    url: https://www.justice.gov/contact-us
+- aid: department-of-justice:bjs-ncvs-api
+  name: BJS National Crime Victimization Survey (NCVS) API
+  description: >-
+    The Bureau of Justice Statistics NCVS API provides REST access to the National Crime Victimization
+    Survey datasets. Endpoints expose Personal Victimization, Personal Population, Household Victimization,
+    and Household Population data in JSON and CSV. The API uses a path, resource, and query parameter
+    structure with a default page size of 1,000 records.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api
+  baseURL: https://api.ojp.gov/bjsdataset/v1
+  tags:
+  - BJS
+  - Crime
+  - NCVS
+  - Statistics
+  - Victimization
+  properties:
+  - type: Documentation
+    url: https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api
+  - type: X-NCVSProgram
+    url: https://bjs.ojp.gov/data-collection/ncvs
+  - type: X-Featured
+    url: >-
+      https://bjs.ojp.gov/featured/national-crime-victimization-survey-ncvs-application-programming-interface-api
+  - type: X-DataTools
+    url: https://bjs.ojp.gov/data/data-analysis-tools
+  contact:
+  - FN: Bureau of Justice Statistics
+    url: https://bjs.ojp.gov/about-bjs-website
+- aid: department-of-justice:bjs-nibrs-api
+  name: BJS NIBRS National Estimates API
+  description: >-
+    The Bureau of Justice Statistics NIBRS National Estimates API provides REST access to the National
+    Incident-Based Reporting System estimates including victimization counts and rates. Endpoints return
+    JSON or CSV and follow a path, resource, query parameter structure with a default page size of 1,000
+    records.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: >-
+    https://bjs.ojp.gov/national-incident-based-reporting-system-nibrs-national-estimates-api
+  baseURL: https://api.ojp.gov/bjsdataset/v1
+  tags:
+  - BJS
+  - Crime
+  - National Estimates
+  - NIBRS
+  - Statistics
+  properties:
+  - type: Documentation
+    url: >-
+      https://bjs.ojp.gov/national-incident-based-reporting-system-nibrs-national-estimates-api
+  - type: X-NIBRSProgram
+    url: https://bjs.ojp.gov/national-incident-based-reporting-system-nibrs
+  - type: X-Codebook
+    url: https://bjs.ojp.gov/document/nibrs-codebook-supplementary-documentation.pdf
+  contact:
+  - FN: Bureau of Justice Statistics
+    url: https://bjs.ojp.gov/about-bjs-website
+- aid: department-of-justice:fara-efile-api
+  name: FARA e-File Registrant API
+  description: >-
+    The Foreign Agents Registration Act e-File system exposes registrant data filed under FARA as JSON.
+    The DOJ Developer Resources page describes the FARA.gov API as providing public access to registrations,
+    short-form filings for individual foreign agents, and foreign principals. Only the registrant feeds
+    were reachable when probed on 2026-09-06: /api/v1/Registrants/json/Active and /api/v1/Registrants/json/Terminated
+    both returned 200 without a key, while the ORDS API landing page linked from the DOJ developer page
+    returned 500. There is no published reference documentation for these endpoints.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.justice.gov/developer
+  baseURL: https://efile.fara.gov/api/v1
+  tags:
+  - FARA
+  - Foreign Agents
+  - National Security Division
+  - Registrants
+  properties:
+  - type: Documentation
+    url: https://www.justice.gov/developer
+  - type: X-FARAProgram
+    url: https://www.justice.gov/nsd-fara
+  - type: X-BrowseFilings
+    url: https://efile.fara.gov/ords/fara/f?p=1381:1
+  contact:
+  - FN: DOJ National Security Division, FARA Unit
+    url: https://www.justice.gov/nsd-fara
+- aid: department-of-justice:doj-open-data-catalog
+  name: DOJ Open Data Catalog
+  description: >-
+    DOJ publishes datasets through the Open Government program and the Department's Data Inventory. Datasets
+    are also surfaced on Data.gov under the doj-gov organization and are accessible via the CKAN-compatible
+    Data.gov API.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.justice.gov/data
+  baseURL: https://catalog.data.gov/api
+  tags:
+  - CKAN
+  - Datasets
+  - Open Data
+  properties:
+  - type: Documentation
+    url: https://www.justice.gov/data
+  - type: X-OpenGovernment
+    url: https://www.justice.gov/open
+  - type: X-DataCatalog
+    url: https://www.justice.gov/data.json
+  - type: X-DataGovCatalogAPI
+    url: https://catalog.data.gov/openapi.json
+  contact:
+  - FN: DOJ Open Data
+    url: https://www.justice.gov/open
+- aid: department-of-justice:department-of-justice-agency-component-api
+  name: Department of Justice Agency Component API
+  description: >-
+    The Agency Component API from Department of Justice — 3 operation(s) for agency component.
+  humanURL: https://www.justice.gov/developer/api-documentation/api_v1
+  baseURL: https://www.justice.gov/api/v1
+  tags:
+  - Agency Component
+  properties:
+  - type: OpenAPI
+    url: openapi/department-of-justice-agency-component-api-openapi.yml
+  - type: Documentation
+    url: https://www.foia.gov/developer/
+  - type: Reference
+    url: https://www.foia.gov/developer/agency-api/
+  - type: APIReference
+    url: https://www.foia.gov/swagger.html
+  - type: SignUp
+    url: https://www.foia.gov/developer/#api-key-signup
+  - type: SourceCode
+    url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+- aid: department-of-justice:department-of-justice-agency-taxonomy-api
+  name: Department of Justice Agency Taxonomy API
+  description: The Agency Taxonomy API from Department of Justice — 2 operation(s) for agency taxonomy.
+  humanURL: https://www.justice.gov/developer/api-documentation/api_v1
+  baseURL: https://www.justice.gov/api/v1
+  tags:
+  - Agency Taxonomy
+  properties:
+  - type: OpenAPI
+    url: openapi/department-of-justice-agency-taxonomy-api-openapi.yml
+  - type: Documentation
+    url: https://www.foia.gov/developer/
+  - type: Reference
+    url: https://www.foia.gov/developer/agency-api/
+  - type: APIReference
+    url: https://www.foia.gov/swagger.html
+  - type: SignUp
+    url: https://www.foia.gov/developer/#api-key-signup
+  - type: SourceCode
+    url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+- aid: department-of-justice:department-of-justice-annual-foia-report-data-api
+  name: Department of Justice Annual FOIA Report Data API
+  description: >-
+    The Annual FOIA Report Data API from Department of Justice — 3 operation(s) for annual foia report
+    data.
+  humanURL: https://www.justice.gov/developer/api-documentation/api_v1
+  baseURL: https://www.justice.gov/api/v1
+  tags:
+  - Annual FOIA Report Data
+  properties:
+  - type: OpenAPI
+    url: openapi/department-of-justice-annual-foia-report-data-api-openapi.yml
+  - type: Documentation
+    url: https://www.foia.gov/developer/
+  - type: Reference
+    url: https://www.foia.gov/developer/agency-api/
+  - type: APIReference
+    url: https://www.foia.gov/swagger.html
+  - type: SignUp
+    url: https://www.foia.gov/developer/#api-key-signup
+  - type: SourceCode
+    url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+- aid: department-of-justice:department-of-justice-cfo-committee-api
+  name: Department of Justice CFO Committee API
+  description: The CFO Committee API from Department of Justice — 4 operation(s) for cfo committee.
+  humanURL: https://www.justice.gov/developer/api-documentation/api_v1
+  baseURL: https://www.justice.gov/api/v1
+  tags:
+  - CFO Committee
+  properties:
+  - type: OpenAPI
+    url: openapi/department-of-justice-cfo-committee-api-openapi.yml
+  - type: Documentation
+    url: https://www.foia.gov/developer/
+  - type: Reference
+    url: https://www.foia.gov/developer/agency-api/
+  - type: APIReference
+    url: https://www.foia.gov/swagger.html
+  - type: SignUp
+    url: https://www.foia.gov/developer/#api-key-signup
+  - type: SourceCode
+    url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+- aid: department-of-justice:department-of-justice-cfo-council-api
+  name: Department of Justice CFO Council API
+  description: The CFO Council API from Department of Justice — 2 operation(s) for cfo council.
+  humanURL: https://www.justice.gov/developer/api-documentation/api_v1
+  baseURL: https://www.justice.gov/api/v1
+  tags:
+  - CFO Council
+  properties:
+  - type: OpenAPI
+    url: openapi/department-of-justice-cfo-council-api-openapi.yml
+  - type: Documentation
+    url: https://www.foia.gov/developer/
+  - type: Reference
+    url: https://www.foia.gov/developer/agency-api/
+  - type: APIReference
+    url: https://www.foia.gov/swagger.html
+  - type: SignUp
+    url: https://www.foia.gov/developer/#api-key-signup
+  - type: SourceCode
+    url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+- aid: department-of-justice:department-of-justice-cfo-meeting-api
+  name: Department of Justice CFO Meeting API
+  description: The CFO Meeting API from Department of Justice — 5 operation(s) for cfo meeting.
+  humanURL: https://www.justice.gov/developer/api-documentation/api_v1
+  baseURL: https://www.justice.gov/api/v1
+  tags:
+  - CFO Meeting
+  properties:
+  - type: OpenAPI
+    url: openapi/department-of-justice-cfo-meeting-api-openapi.yml
+  - type: Documentation
+    url: https://www.foia.gov/developer/
+  - type: Reference
+    url: https://www.foia.gov/developer/agency-api/
+  - type: APIReference
+    url: https://www.foia.gov/swagger.html
+  - type: SignUp
+    url: https://www.foia.gov/developer/#api-key-signup
+  - type: SourceCode
+    url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+- aid: department-of-justice:department-of-justice-cfo-page-api
+  name: Department of Justice CFO Page API
+  description: The CFO Page API from Department of Justice — 3 operation(s) for cfo page.
+  humanURL: https://www.justice.gov/developer/api-documentation/api_v1
+  baseURL: https://www.justice.gov/api/v1
+  tags:
+  - CFO Page
+  properties:
+  - type: OpenAPI
+    url: openapi/department-of-justice-cfo-page-api-openapi.yml
+  - type: Documentation
+    url: https://www.foia.gov/developer/
+  - type: Reference
+    url: https://www.foia.gov/developer/agency-api/
+  - type: APIReference
+    url: https://www.foia.gov/swagger.html
+  - type: SignUp
+    url: https://www.foia.gov/developer/#api-key-signup
+  - type: SourceCode
+    url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
+- aid: department-of-justice:department-of-justice-quarterly-foia-report-data-api
+  name: Department of Justice Quarterly FOIA Report Data API
+  description: >-
+    The Quarterly FOIA Report Data API from Department of Justice — 2 operation(s) for quarterly foia
+    report data.
+  humanURL: https://www.justice.gov/developer/api-documentation/api_v1
+  baseURL: https://www.justice.gov/api/v1
+  tags:
+  - Quarterly FOIA Report Data
+  properties:
+  - type: OpenAPI
+    url: openapi/department-of-justice-quarterly-foia-report-data-api-openapi.yml
+  - type: Documentation
+    url: https://www.foia.gov/developer/
+  - type: Reference
+    url: https://www.foia.gov/developer/agency-api/
+  - type: APIReference
+    url: https://www.foia.gov/swagger.html
+  - type: SignUp
+    url: https://www.foia.gov/developer/#api-key-signup
+  - type: SourceCode
+    url: https://github.com/usdoj/foia.gov/blob/develop/swagger.json
 common:
+  - type: Overlay
+    url: overlays/department-of-justice-foia-api-overlay.yaml
   - type: Authentication
     url: authentication/department-of-justice-authentication.yml
   - type: DomainSecurity
