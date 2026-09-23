@@ -1,0 +1,330 @@
+openapi: 3.2.0
+info:
+  description: 'This Swagger Page is for the FOIA Request Portal. Information about the FOIA Agency API can be found on the API Specs page.
+
+
+    Authorization with API Key
+
+
+    Use the Authorize button below to enter your api_key if you have one. You can signup for an API key or use the following api_key for testing.
+
+
+    N4aCuDuJO8Ucf1FTR2EzVPZqo8NsSl1c7YLYOk8N
+
+
+    Agency Component Entity ID
+
+
+    You can use the Entity ID for Office of Information Policy in the examples below:
+
+    8216158f-8089-431d-b866-dc334e8d4758'
+  title: National FOIA Portal - JSON Quarterly FOIA Report Data API
+  version: Versioning not supported
+servers:
+- url: https://api.foia.gov/api
+security:
+- APIKeyHeader: []
+tags:
+- name: Quarterly FOIA Report Data
+paths:
+  /quarterly_foia_report:
+    get:
+      summary: List Quarterly FOIA Reports
+      description: Endpoint for the quarterly_foia_report_data resource type.
+      parameters:
+      - name: page[limit]
+        in: query
+        required: true
+        description: Limiting the result set to 10 reports is necessary due to the high number of Annual Reports. <p><a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination" target="_blank">Learn more about Pagination in the Drupal documentation</a>.</p>
+        schema:
+          type: number
+          maximum: 10
+          minimum: 1
+      - name: page[offset]
+        in: query
+        required: false
+        description: <p>The offset is the result you want to start with.  An offset of 3 and a <code>page[limit]</code> of 10 will list ten items starting from item 3.  Each JSON response from the API will have built in pagination under <code>links</code>.</p><p><a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination" target="_blank">Learn more about Pagination in the Drupal documentation</a>.</p>
+        schema:
+          type: string
+      - name: sort
+        in: query
+        required: false
+        description: <p>You can sort results in alphabetical order by multiple fields such as <code>title</code> or by author <code>uid.name</code>.</p><p><a href="https://www.drupal.org/docs/8/modules/jsonapi/sorting" target="_blank">Learn more about sorting in the Drupal documentation</a>.</p>
+        schema:
+          type: array
+      - name: include
+        in: query
+        required: false
+        description: Embed related entities in the JSON response under <code>relationships</code>. <p><a href="https://www.drupal.org/docs/8/modules/jsonapi/includes" target="_blank">Learn more in the documentation</a>.</p><p><h5>Possible values:</h5><code>field_agency, field_agency_components, field_quarterly_component_data</code></p>
+        schema:
+          type: string
+      tags:
+      - Quarterly FOIA Report Data
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/vnd.api+json:
+              schema:
+                title: node:quarterly_foia_report_data Schema
+                description: Quarterly total data report given by an agency.
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/node--quarterly_foia_report_data/properties/data'
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+                  links:
+                    type: object
+                    additionalProperties:
+                      description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                      type: object
+                      required:
+                      - href
+                      properties:
+                        href:
+                          description: 'A string containing the link''s URL . '
+                          type: string
+                          format: uri - reference
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                          type: object
+                          additionalProperties: true
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                        type: object
+                        additionalProperties: true
+                    additionalProperties: false
+                additionalProperties: true
+      operationId: getQuarterlyFoiaReport
+      x-operation-id-source: derived
+  /quarterly_foia_report/fiscal_years:
+    get:
+      summary: 'Get Quarterly Report: Fiscal Years'
+      description: Request Fiscal Years for Quarterly Reports.
+      security:
+      - APIKeyHeader: []
+      tags:
+      - Quarterly FOIA Report Data
+      responses:
+        '200':
+          description: Successful Operation
+        '400':
+          description: Syntax error
+        '403':
+          description: 'Forbidden: The api_key is missing'
+        '404':
+          description: Not Found
+      operationId: getQuarterlyFoiaReportFiscalYears
+      x-operation-id-source: derived
+components:
+  schemas:
+    node--quarterly_foia_report_data:
+      title: node:quarterly_foia_report_data Schema
+      description: Quarterly total data report given by an agency.
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent resources.
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              title: type
+              description: Resource type
+              enum:
+              - quarterly_foia_report_data
+            id:
+              type: string
+              title: Resource ID
+              format: uuid
+              maxLength: 128
+            attributes:
+              description: Entity attributes
+              type: object
+              additionalProperties: false
+              properties:
+                status:
+                  type: boolean
+                  title: Published
+                  default: false
+                title:
+                  type: string
+                  title: Title
+                  maxLength: 255
+                field_quarterly_backlogged_oa:
+                  type: integer
+                  title: Agency Overall - Number of requests backlogged
+                field_quarterly_closed:
+                  type: integer
+                  title: Ten Oldest Requests Closed
+                  description: Of the ten or fewer requests identified in your previous response, please select the number of requests your agency has closed during the current fiscal year.
+                field_quarterly_pending:
+                  type: integer
+                  title: Ten Oldest Pending Requests
+                  description: "Did your agency have 10 or more perfected requests pending at the end of the last fiscal year?\n\n  If so, please select the number 10.\n  If your agency had fewer than 10, please select the correct number.\n"
+                field_quarterly_processed_oa:
+                  type: integer
+                  title: Agency Overall - Number of requests processed
+                field_quarterly_quarter:
+                  type: integer
+                  title: Quarter
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                field_quarterly_received_oa:
+                  type: integer
+                  title: Agency Overall - Number of requests received
+                field_quarterly_year:
+                  type: integer
+                  title: Fiscal Year
+              required:
+              - title
+              - field_quarterly_closed
+              - field_quarterly_pending
+              - field_quarterly_quarter
+              - field_quarterly_year
+            relationships:
+              description: Entity relationships
+              type: object
+              additionalProperties: false
+              properties:
+                field_agency:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - agency
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Agency
+                field_agency_components:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: Components
+                field_quarterly_component_data:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                            enum:
+                            - paragraph--quarterly_component_data
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: Component data
+            links:
+              type: object
+              additionalProperties:
+                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                type: object
+                required:
+                - href
+                properties:
+                  href:
+                    description: 'A string containing the link''s URL . '
+                    type: string
+                    format: uri - reference
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+        meta:
+          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+          type: object
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties:
+            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+            type: object
+            required:
+            - href
+            properties:
+              href:
+                description: 'A string containing the link''s URL . '
+                type: string
+                format: uri - reference
+              meta:
+                description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                type: object
+                additionalProperties: true
+        jsonapi:
+          description: An object describing the server's implementation
+          type: object
+          properties:
+            version:
+              type: string
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+      additionalProperties: true
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key

@@ -1,0 +1,320 @@
+openapi: 3.2.0
+info:
+  description: 'This Swagger Page is for the FOIA Request Portal. Information about the FOIA Agency API can be found on the API Specs page.
+
+
+    Authorization with API Key
+
+
+    Use the Authorize button below to enter your api_key if you have one. You can signup for an API key or use the following api_key for testing.
+
+
+    N4aCuDuJO8Ucf1FTR2EzVPZqo8NsSl1c7YLYOk8N
+
+
+    Agency Component Entity ID
+
+
+    You can use the Entity ID for Office of Information Policy in the examples below:
+
+    8216158f-8089-431d-b866-dc334e8d4758'
+  title: National FOIA Portal - JSON Agency Taxonomy API
+  version: Versioning not supported
+servers:
+- url: https://api.foia.gov/api
+security:
+- APIKeyHeader: []
+tags:
+- name: Agency Taxonomy
+paths:
+  /agency:
+    get:
+      summary: 'List Taxonomy: Agency'
+      description: Endpoint for listing the agency taxonomy type. The ID returned can be used to get details on the term.
+      parameters:
+      - name: page[limit]
+        in: query
+        required: false
+        description: You can use <code>page[limit]</code> to return a maximum number of results. <p><a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination" target="_blank">Learn more about Pagination in the Drupal documentation</a>.</p>
+        schema:
+          type: number
+      - name: page[offset]
+        in: query
+        required: false
+        description: <p>The offset is the result you want to start with.  An offset of 3 and a <code>page[limit]</code> of 10 will list ten items starting from item 3.  Each JSON response from the API will have built in pagination under <code>links</code>.</p><p><a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination" target="_blank">Learn more about Pagination in the Drupal documentation</a>.</p>
+        schema:
+          type: string
+      - name: include
+        in: query
+        required: false
+        description: Embed related entities in the JSON response under <code>relationships</code>. <p><a href="https://www.drupal.org/docs/8/modules/jsonapi/includes" target="_blank">Learn more in the documentation</a>.</p><p><h5>Possible values:</h5><code>revision_user, category</code></p>
+        schema:
+          type: string
+      tags:
+      - Agency Taxonomy
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                title: taxonomy_term:agency Schema
+                description: Describes the payload for 'taxonomy_term' entities of the 'agency' bundle.
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/taxonomy_term--agency/properties/data'
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+                  links:
+                    type: object
+                    additionalProperties:
+                      description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                      type: object
+                      required:
+                      - href
+                      properties:
+                        href:
+                          description: 'A string containing the link''s URL . '
+                          type: string
+                          format: uri - reference
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                          type: object
+                          additionalProperties: true
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                        type: object
+                        additionalProperties: true
+                    additionalProperties: false
+                additionalProperties: true
+      operationId: getAgency
+      x-operation-id-source: derived
+  /agency/{entity}:
+    get:
+      summary: 'Get Taxonomy Details: Agency'
+      description: Endpoint for the agency taxonomy type. The individual endpoint contains details on the Agency Taxonomy Type.
+      parameters:
+      - name: entity
+        required: true
+        in: path
+        description: The uuid of the taxonomy_term agency which can be found using the List Agency endpoint above.  You can use the ID <code>0562281a-9b9f-4f43-89c3-d1661841d5a4</code> as an example.
+        schema:
+          type: string
+      tags:
+      - Agency Taxonomy
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/taxonomy_term--agency'
+      operationId: getAgencyByEntity
+      x-operation-id-source: derived
+components:
+  schemas:
+    taxonomy_term--agency:
+      title: taxonomy_term:agency Schema
+      description: Describes the payload for 'taxonomy_term' entities of the 'agency' bundle.
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent resources.
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              title: type
+              description: Resource type
+              enum:
+              - agency
+            id:
+              type: string
+              title: Resource ID
+              format: uuid
+              maxLength: 128
+            attributes:
+              description: Entity attributes
+              type: object
+              additionalProperties: false
+              properties:
+                drupal_internal__tid:
+                  type: integer
+                  title: Term ID
+                  description: The term ID.
+                drupal_internal__revision_id:
+                  type: integer
+                  title: Revision ID
+                revision_created:
+                  type: number
+                  title: Revision create time
+                  format: utc-millisec
+                  description: The time that the current revision was created.
+                revision_log_message:
+                  type: string
+                  title: Revision log message
+                  description: Briefly describe the changes you have made.
+                  default: ''
+                status:
+                  type: boolean
+                  title: Published
+                  default: true
+                name:
+                  type: string
+                  title: Name
+                  maxLength: 255
+                description:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Text
+                    format:
+                      type: string
+                      title: Text format
+                  required:
+                  - value
+                  title: Description
+                revision_default:
+                  type: boolean
+                  title: Default revision
+                  description: A flag indicating whether this was a default revision when it was saved.
+                revision_translation_affected:
+                  type: boolean
+                  title: Revision translation affected
+                  description: Indicates if the last edit of a translation belongs to current revision.
+                metatag:
+                  type: object
+                  title: Metatags (Hidden field for JSON support)
+                  description: The meta tags for the entity.
+                abbreviation:
+                  type: string
+                  title: Abbreviation
+                  maxLength: 10
+                  description: Enter the abbreviation for the agency (e.g. DOJ for the Department of Justice).
+              required:
+              - name
+              - revision_translation_affected
+              - metatag
+            relationships:
+              description: Entity relationships
+              type: object
+              additionalProperties: false
+              properties:
+                revision_user:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - user--user
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Revision user
+                category:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - agency_category
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Category
+              required: []
+            links:
+              type: object
+              additionalProperties:
+                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                type: object
+                required:
+                - href
+                properties:
+                  href:
+                    description: 'A string containing the link''s URL . '
+                    type: string
+                    format: uri - reference
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+        meta:
+          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+          type: object
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties:
+            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+            type: object
+            required:
+            - href
+            properties:
+              href:
+                description: 'A string containing the link''s URL . '
+                type: string
+                format: uri - reference
+              meta:
+                description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                type: object
+                additionalProperties: true
+        jsonapi:
+          description: An object describing the server's implementation
+          type: object
+          properties:
+            version:
+              type: string
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+      additionalProperties: true
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key

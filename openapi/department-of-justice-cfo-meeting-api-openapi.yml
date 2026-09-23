@@ -1,0 +1,1184 @@
+openapi: 3.2.0
+info:
+  description: 'This Swagger Page is for the FOIA Request Portal. Information about the FOIA Agency API can be found on the API Specs page.
+
+
+    Authorization with API Key
+
+
+    Use the Authorize button below to enter your api_key if you have one. You can signup for an API key or use the following api_key for testing.
+
+
+    N4aCuDuJO8Ucf1FTR2EzVPZqo8NsSl1c7YLYOk8N
+
+
+    Agency Component Entity ID
+
+
+    You can use the Entity ID for Office of Information Policy in the examples below:
+
+    8216158f-8089-431d-b866-dc334e8d4758'
+  title: National FOIA Portal - JSON CFO Meeting API
+  version: Versioning not supported
+servers:
+- url: https://api.foia.gov/api
+security:
+- APIKeyHeader: []
+tags:
+- name: CFO Meeting
+paths:
+  /node/cfo_meeting:
+    get:
+      summary: List CFO Meetings
+      description: Endpoint for listing node--cfo_meeting resource type. The ID returned can be used to get details for the CFO Meeting.
+      parameters:
+      - name: page[limit]
+        in: query
+        required: false
+        description: Limiting the result set to 10 reports is necessary due to the high number of Annual Reports. <p><a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination" target="_blank">Learn more about Pagination in the Drupal documentation</a>.</p>
+        schema:
+          type: number
+      - name: page[offset]
+        in: query
+        required: false
+        description: <p>The offset is the result you want to start with.  An offset of 3 and a <code>page[limit]</code> of 10 will list ten items starting from item 3.  Each JSON response from the API will have built in pagination under <code>links</code>.</p><p><a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination" target="_blank">Learn more about Pagination in the Drupal documentation</a>.</p>
+        schema:
+          type: string
+      - name: sort
+        in: query
+        required: false
+        description: <h5>For Example:</h5><p>You can sort results in alphabetical order by multiple fields such as <code>title</code>.  You can also sort by other useful fields such as the author name <code>uid.name</code>.</p> <code>field_meeting_date, changed,  created, moderation_state</code></p><p><a href="https://www.drupal.org/docs/8/modules/jsonapi/sorting" target="_blank">Learn more about sorting in the Drupal documentation</a>.</p>
+        schema:
+          type: array
+      - name: sort[sort-created][direction]
+        in: query
+        required: false
+        description: You can change the sorting direction by using either <code>DESC</code> and <code>ASC</code>.
+        schema:
+          type: string
+      - name: include
+        in: query
+        required: false
+        description: Embed related entities in the JSON response under <code>relationships</code>. <p><a href="https://www.drupal.org/docs/8/modules/jsonapi/includes" target="_blank">Learn more in the documentation</a>.</p><p><h5>Possible values:</h5><code>node_type, revision_uid, uid, menu_link, field_meeting_agenda, field_meeting_documents, field_meeting_materials</code></p>
+        schema:
+          type: string
+      tags:
+      - CFO Meeting
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                title: node:cfo_meeting Schema
+                description: Meetings for the Chief FOIA Officers Council.  Contains the date, body, heading, agenda, and links to meeting related documents and information.
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/node--cfo_meeting/properties/data'
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+                  links:
+                    type: object
+                    additionalProperties:
+                      description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                      type: object
+                      required:
+                      - href
+                      properties:
+                        href:
+                          description: 'A string containing the link''s URL . '
+                          type: string
+                          format: uri - reference
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                          type: object
+                          additionalProperties: true
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                        type: object
+                        additionalProperties: true
+                    additionalProperties: false
+                additionalProperties: true
+        '403':
+          description: 'Forbidden: The api_key is missing'
+      operationId: getNodeCfoMeeting
+      x-operation-id-source: derived
+  /cfo_meeting/{entity}:
+    get:
+      summary: Get CFO Meeting
+      description: 'Individual endpoint for the node--cfo_meeting resource type. You can use the following entity ID as an example.
+
+        142af11a-14ae-4372-8eda-6aadcb3154a6'
+      parameters:
+      - name: entity
+        required: true
+        in: path
+        description: The uuid of the node cfo_meeting which can be found by using the List CFO Meetings above.
+        schema:
+          type: string
+      tags:
+      - CFO Meeting
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: An array of objects each containing \"type\" and \"id\" members for to-many relationships.
+                    type: array
+                    items:
+                      description: The "type" and "id" to non-empty members.
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          title: Resource type name
+                          type: string
+                          enum:
+                          - paragraph--link_or_file
+                        id:
+                          title: Resource ID
+                          type: string
+                          format: uuid
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                          type: object
+                          additionalProperties: true
+                          properties: {}
+                      additionalProperties: false
+                    uniqueItems: true
+        '400':
+          description: Syntax error
+        '403':
+          description: 'Forbidden: The api_key is missing'
+        '404':
+          description: Not Found
+      operationId: getCfoMeetingByEntity
+      x-operation-id-source: derived
+  /cfo_meeting/{entity}/field_meeting_agenda:
+    get:
+      summary: Get CFO Meeting Agenda Item
+      description: Endpoint for the paragraph--agenda_item resource type through the field_meeting_agenda relationship.
+      parameters:
+      - name: entity
+        required: true
+        in: path
+        description: The uuid of the node cfo_meeting
+        schema:
+          type: string
+      tags:
+      - CFO Meeting
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/vnd.api+json:
+              schema:
+                title: paragraph:agenda_item Schema
+                description: Describes the payload for 'paragraph' entities of the 'agenda_item' bundle.
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/paragraph--agenda_item/properties/data'
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+                  links:
+                    type: object
+                    additionalProperties:
+                      description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                      type: object
+                      required:
+                      - href
+                      properties:
+                        href:
+                          description: 'A string containing the link''s URL . '
+                          type: string
+                          format: uri - reference
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                          type: object
+                          additionalProperties: true
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                        type: object
+                        additionalProperties: true
+                    additionalProperties: false
+                additionalProperties: true
+        '400':
+          description: Syntax error
+        '403':
+          description: 'Forbidden: The api_key is missing'
+        '404':
+          description: Not Found
+      operationId: getCfoMeetingByEntityFieldMeetingAgenda
+      x-operation-id-source: derived
+  /cfo_meeting/{entity}/field_meeting_documents:
+    get:
+      summary: Get CFO Meeting Documents
+      description: Endpoint for the paragraph--link_or_file resource type through the field_meeting_documents resource object.
+      parameters:
+      - name: entity
+        required: true
+        in: path
+        description: The uuid of the node cfo_meeting.
+        schema:
+          type: string
+      tags:
+      - CFO Meeting
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/vnd.api+json:
+              schema:
+                title: paragraph:link_or_file Schema
+                description: Describes the payload for 'paragraph' entities of the 'link_or_file' bundle.
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/paragraph--link_or_file/properties/data'
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+                  links:
+                    type: object
+                    additionalProperties:
+                      description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                      type: object
+                      required:
+                      - href
+                      properties:
+                        href:
+                          description: 'A string containing the link''s URL . '
+                          type: string
+                          format: uri - reference
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                          type: object
+                          additionalProperties: true
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                        type: object
+                        additionalProperties: true
+                    additionalProperties: false
+                additionalProperties: true
+        '400':
+          description: Syntax error
+        '403':
+          description: 'Forbidden: The api_key is missing'
+        '404':
+          description: Not Found
+      operationId: getCfoMeetingByEntityFieldMeetingDocuments
+      x-operation-id-source: derived
+  /cfo_meeting/{entity}/field_meeting_materials:
+    get:
+      summary: Get CFO Meeting Materials
+      description: Endpoint for the paragraph--link_or_file resource type through the field_meeting_materials relationship.
+      parameters:
+      - name: entity
+        required: true
+        in: path
+        description: The uuid of the node cfo_meeting
+        schema:
+          type: string
+      tags:
+      - CFO Meeting
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/vnd.api+json:
+              schema:
+                title: paragraph:link_or_file Schema
+                description: Describes the payload for 'paragraph' entities of the 'link_or_file' bundle.
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/paragraph--link_or_file/properties/data'
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+                  links:
+                    type: object
+                    additionalProperties:
+                      description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                      type: object
+                      required:
+                      - href
+                      properties:
+                        href:
+                          description: 'A string containing the link''s URL . '
+                          type: string
+                          format: uri - reference
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                          type: object
+                          additionalProperties: true
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                        type: object
+                        additionalProperties: true
+                    additionalProperties: false
+                additionalProperties: true
+        '400':
+          description: Syntax error
+        '403':
+          description: 'Forbidden: The api_key is missing'
+        '404':
+          description: Not Found
+      operationId: getCfoMeetingByEntityFieldMeetingMaterials
+      x-operation-id-source: derived
+components:
+  schemas:
+    paragraph--agenda_item:
+      title: paragraph:agenda_item Schema
+      description: Describes the payload for 'paragraph' entities of the 'agenda_item' bundle.
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent resources.
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              title: type
+              description: Resource type
+              enum:
+              - paragraph--agenda_item
+            id:
+              type: string
+              title: Resource ID
+              format: uuid
+              maxLength: 128
+            attributes:
+              description: Entity attributes
+              type: object
+              additionalProperties: false
+              properties:
+                drupal_internal__id:
+                  type: integer
+                  title: ID
+                drupal_internal__revision_id:
+                  type: integer
+                  title: Revision ID
+                langcode:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Language code
+                    language:
+                      type: language_reference
+                      title: Language object
+                      description: The referenced language
+                  required:
+                  - value
+                  title: Language code
+                  description: The paragraphs entity language code.
+                status:
+                  type: boolean
+                  title: Published
+                  default: true
+                created:
+                  type: number
+                  title: Authored on
+                  format: utc-millisec
+                  description: The time that the Paragraph was created.
+                parent_id:
+                  type: string
+                  title: Parent ID
+                  maxLength: 255
+                  description: The ID of the parent entity of which this entity is referenced.
+                parent_type:
+                  type: string
+                  title: Parent type
+                  maxLength: 32
+                  description: The entity parent type to which this entity is referenced.
+                parent_field_name:
+                  type: string
+                  title: Parent field name
+                  maxLength: 32
+                  description: The entity parent field name to which this entity is referenced.
+                behavior_settings:
+                  type: string
+                  title: Behavior settings
+                  description: The behavior plugin settings
+                  default: a:0:{}
+                default_langcode:
+                  type: boolean
+                  title: Default translation
+                  description: A flag indicating whether this is the default translation.
+                  default: true
+                revision_default:
+                  type: boolean
+                  title: Default revision
+                  description: A flag indicating whether this was a default revision when it was saved.
+                revision_translation_affected:
+                  type: boolean
+                  title: Revision translation affected
+                  description: Indicates if the last edit of a translation belongs to current revision.
+                field_agenda_item_description:
+                  type: string
+                  title: Description
+                field_agenda_item_time:
+                  type: integer
+                  title: Time
+                field_agenda_item_title:
+                  type: string
+                  title: Title
+                  maxLength: 255
+              required:
+              - revision_translation_affected
+            relationships:
+              description: Entity relationships
+              type: object
+              additionalProperties: false
+              properties:
+                paragraph_type:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - paragraphs_type--paragraphs_type
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Paragraph type
+            links:
+              type: object
+              additionalProperties:
+                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                type: object
+                required:
+                - href
+                properties:
+                  href:
+                    description: 'A string containing the link''s URL . '
+                    type: string
+                    format: uri - reference
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+        meta:
+          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+          type: object
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties:
+            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+            type: object
+            required:
+            - href
+            properties:
+              href:
+                description: 'A string containing the link''s URL . '
+                type: string
+                format: uri - reference
+              meta:
+                description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                type: object
+                additionalProperties: true
+        jsonapi:
+          description: An object describing the server's implementation
+          type: object
+          properties:
+            version:
+              type: string
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+      additionalProperties: true
+    paragraph--link_or_file:
+      title: paragraph:link_or_file Schema
+      description: Describes the payload for 'paragraph' entities of the 'link_or_file' bundle.
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent resources.
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              title: type
+              description: Resource type
+              enum:
+              - paragraph--link_or_file
+            id:
+              type: string
+              title: Resource ID
+              format: uuid
+              maxLength: 128
+            attributes:
+              description: Entity attributes
+              type: object
+              additionalProperties: false
+              properties:
+                drupal_internal__id:
+                  type: integer
+                  title: ID
+                drupal_internal__revision_id:
+                  type: integer
+                  title: Revision ID
+                langcode:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Language code
+                    language:
+                      type: language_reference
+                      title: Language object
+                      description: The referenced language
+                  required:
+                  - value
+                  title: Language code
+                  description: The paragraphs entity language code.
+                status:
+                  type: boolean
+                  title: Published
+                  default: true
+                created:
+                  type: number
+                  title: Authored on
+                  format: utc-millisec
+                  description: The time that the Paragraph was created.
+                parent_id:
+                  type: string
+                  title: Parent ID
+                  maxLength: 255
+                  description: The ID of the parent entity of which this entity is referenced.
+                parent_type:
+                  type: string
+                  title: Parent type
+                  maxLength: 32
+                  description: The entity parent type to which this entity is referenced.
+                parent_field_name:
+                  type: string
+                  title: Parent field name
+                  maxLength: 32
+                  description: The entity parent field name to which this entity is referenced.
+                behavior_settings:
+                  type: string
+                  title: Behavior settings
+                  description: The behavior plugin settings
+                  default: a:0:{}
+                default_langcode:
+                  type: boolean
+                  title: Default translation
+                  description: A flag indicating whether this is the default translation.
+                  default: true
+                revision_default:
+                  type: boolean
+                  title: Default revision
+                  description: A flag indicating whether this was a default revision when it was saved.
+                revision_translation_affected:
+                  type: boolean
+                  title: Revision translation affected
+                  description: Indicates if the last edit of a translation belongs to current revision.
+                field_link_label:
+                  type: string
+                  title: Label
+                  maxLength: 100
+                  description: 'Using the fields below, enter either:
+
+
+                    a link/URL to an existing piece of content or other external webpage.
+
+                    upload a file using the \"Choose File\" browser
+
+                    '
+                field_link_link:
+                  type: object
+                  properties:
+                    uri:
+                      type: string
+                      title: URI
+                    title:
+                      type: string
+                      title: Link text
+                  title: Link
+              required:
+              - revision_translation_affected
+            relationships:
+              description: Entity relationships
+              type: object
+              additionalProperties: false
+              properties:
+                paragraph_type:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - paragraphs_type--paragraphs_type
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Paragraph type
+                field_link_file:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: File
+            links:
+              type: object
+              additionalProperties:
+                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                type: object
+                required:
+                - href
+                properties:
+                  href:
+                    description: 'A string containing the link''s URL . '
+                    type: string
+                    format: uri - reference
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+        meta:
+          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+          type: object
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties:
+            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+            type: object
+            required:
+            - href
+            properties:
+              href:
+                description: 'A string containing the link''s URL . '
+                type: string
+                format: uri - reference
+              meta:
+                description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                type: object
+                additionalProperties: true
+        jsonapi:
+          description: An object describing the server's implementation
+          type: object
+          properties:
+            version:
+              type: string
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+      additionalProperties: true
+    node--cfo_meeting:
+      title: node:cfo_meeting Schema
+      description: Meetings for the Chief FOIA Officers Council.  Contains the date, body, heading, agenda, and links to meeting related documents and information.
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent resources.
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              title: type
+              description: Resource type
+              enum:
+              - node--cfo_meeting
+            id:
+              type: string
+              title: Resource ID
+              format: uuid
+              maxLength: 128
+            attributes:
+              description: Entity attributes
+              type: object
+              additionalProperties: false
+              properties:
+                drupal_internal__nid:
+                  type: integer
+                  title: ID
+                drupal_internal__vid:
+                  type: integer
+                  title: Revision ID
+                langcode:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Language code
+                    language:
+                      type: language_reference
+                      title: Language object
+                      description: The referenced language
+                  required:
+                  - value
+                  title: Language
+                revision_timestamp:
+                  type: number
+                  title: Revision create time
+                  format: utc-millisec
+                  description: The time that the current revision was created.
+                revision_log:
+                  type: string
+                  title: Revision log message
+                  description: Briefly describe the changes you have made.
+                  default: ''
+                status:
+                  type: boolean
+                  title: Published
+                  default: true
+                title:
+                  type: string
+                  title: Title
+                  maxLength: 255
+                created:
+                  type: number
+                  title: Authored on
+                  format: utc-millisec
+                  description: The time that the node was created.
+                changed:
+                  type: number
+                  title: Changed
+                  format: utc-millisec
+                  description: The time that the node was last edited.
+                promote:
+                  type: boolean
+                  title: Promoted to front page
+                  default: false
+                sticky:
+                  type: boolean
+                  title: Sticky at top of lists
+                  default: false
+                default_langcode:
+                  type: boolean
+                  title: Default translation
+                  description: A flag indicating whether this is the default translation.
+                  default: true
+                revision_default:
+                  type: boolean
+                  title: Default revision
+                  description: A flag indicating whether this was a default revision when it was saved.
+                revision_translation_affected:
+                  type: boolean
+                  title: Revision translation affected
+                  description: Indicates if the last edit of a translation belongs to current revision.
+                moderation_state:
+                  type: string
+                  title: Moderation state
+                  maxLength: 255
+                  description: The moderation state of this piece of content.
+                scheduled_transition_date:
+                  type: array
+                  title: Scheduled transition date
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                        title: Date value
+                        format: date
+                    required:
+                    - value
+                scheduled_transition_state:
+                  type: array
+                  title: Scheduled transition state
+                  items:
+                    type: string
+                    title: Text value
+                    maxLength: 255
+                scheduled_publication:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Date value
+                      format: date
+                  required:
+                  - value
+                scheduled_moderation_state:
+                  type: string
+                  title: Text value
+                  maxLength: 255
+                metatag:
+                  type: object
+                  title: Metatags (Hidden field for JSON support)
+                  description: The meta tags for the entity.
+                path:
+                  type: object
+                  properties:
+                    alias:
+                      type: string
+                      title: Path alias
+                    pid:
+                      type: integer
+                      title: Path id
+                    langcode:
+                      type: string
+                      title: Language Code
+                  title: URL alias
+                body:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Text
+                    format:
+                      type: string
+                      title: Text format
+                    summary:
+                      type: string
+                      title: Summary
+                  required:
+                  - value
+                  title: Body
+                field_meeting_date:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Date value
+                      format: date
+                  required:
+                  - value
+                  title: Meeting Date
+                  description: Enter the required meeting date.  This will control the sort order of all meetings on the council page.
+                field_meeting_heading:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Text
+                    format:
+                      type: string
+                      title: Text format
+                  required:
+                  - value
+                  title: Heading
+                  description: The heading will appear at the top of the agenda page for this meeting.
+              required:
+              - title
+              - revision_translation_affected
+              - metatag
+              - path
+              - field_meeting_date
+            relationships:
+              description: Entity relationships
+              type: object
+              additionalProperties: false
+              properties:
+                node_type:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - node_type--node_type
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Content type
+                revision_uid:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - user--user
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Revision user
+                uid:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - user--user
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Authored by
+                menu_link:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - menu_link_content--menu_link_content
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Menu link
+                field_meeting_agenda:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                            enum:
+                            - paragraph--agenda_item
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: Agenda
+                field_meeting_documents:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                            enum:
+                            - paragraph--link_or_file
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: Working Documents
+                field_meeting_materials:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                            enum:
+                            - paragraph--link_or_file
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: Meeting Materials
+            links:
+              type: object
+              additionalProperties:
+                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                type: object
+                required:
+                - href
+                properties:
+                  href:
+                    description: 'A string containing the link''s URL . '
+                    type: string
+                    format: uri - reference
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+        meta:
+          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+          type: object
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties:
+            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+            type: object
+            required:
+            - href
+            properties:
+              href:
+                description: 'A string containing the link''s URL . '
+                type: string
+                format: uri - reference
+              meta:
+                description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                type: object
+                additionalProperties: true
+        jsonapi:
+          description: An object describing the server's implementation
+          type: object
+          properties:
+            version:
+              type: string
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+      additionalProperties: true
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key

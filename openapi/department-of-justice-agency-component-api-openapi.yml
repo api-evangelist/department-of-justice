@@ -1,0 +1,766 @@
+openapi: 3.2.0
+info:
+  description: 'This Swagger Page is for the FOIA Request Portal. Information about the FOIA Agency API can be found on the API Specs page.
+
+
+    Authorization with API Key
+
+
+    Use the Authorize button below to enter your api_key if you have one. You can signup for an API key or use the following api_key for testing.
+
+
+    N4aCuDuJO8Ucf1FTR2EzVPZqo8NsSl1c7YLYOk8N
+
+
+    Agency Component Entity ID
+
+
+    You can use the Entity ID for Office of Information Policy in the examples below:
+
+    8216158f-8089-431d-b866-dc334e8d4758'
+  title: National FOIA Portal - JSON Agency Component API
+  version: Versioning not supported
+servers:
+- url: https://api.foia.gov/api
+security:
+- APIKeyHeader: []
+tags:
+- name: Agency Component
+paths:
+  /agency_components:
+    get:
+      summary: Get a List of Agency Components
+      description: 'Request a list of Agency Components. The ID returned can be used to get more details about the Agency Component. Using parameters such as include and fields allow you to request complex data.
+
+
+        For Example:
+
+
+        A list of agency components with their parent agency.
+
+        https://api.foia.gov/api/agency_components?&include=agency&fields[agency]=name,abbreviation&fields[agency_component]=title,abbreviation,agency'
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: fields[agency_component]
+        required: false
+        in: query
+        description: You can choose which fields to include by using comma separated values in this parameter.</p><h5>For Example:</h5><p>This endpoint will return only the title and description. <br> https://api.foia.gov/api/agency_components?fields[agency_component]=title,description&api_key=N4aCuDuJO8Ucf1FTR2EzVPZqo8NsSl1c7YLYOk8N</p><h5>Possible values:</h5><code>title, status, abbreviation, moderation_state, description, email, submission_address</code>
+        schema:
+          type: string
+      - name: fields[agency]
+        required: false
+        in: query
+        description: You can choose which fields to include by using comma separated values in this parameter.</p><h5>For Example:</h5><p>This endpoint will return only the title and description. <br> https://api.foia.gov/api/agency_components?fields[agency_component]=title,description&api_key=N4aCuDuJO8Ucf1FTR2EzVPZqo8NsSl1c7YLYOk8N</p><h5>Possible values:</h5><code>title, status, abbreviation, moderation_state, description, email, submission_address</code>
+        schema:
+          type: string
+      - name: page[limit]
+        in: query
+        required: false
+        description: You can use <code>page[limit]</code> to return a maximum number of results. <p><a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination" target="_blank">Learn more about Pagination in the Drupal documentation</a>.</p>
+        schema:
+          type: number
+      - name: page[offset]
+        in: query
+        required: false
+        description: <p>The offset is the result you want to start with.  An offset of 3 and a <code>page[limit]</code> of 10 will list ten items starting from item 3.  Each JSON response from the API will have built in pagination under <code>links</code>.</p><p><a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination" target="_blank">Learn more about Pagination in the Drupal documentation</a>.</p>
+        schema:
+          type: string
+      - name: include
+        in: query
+        required: false
+        description: Embed related entities in the JSON response under <code>relationships</code>. <p><a href="https://www.drupal.org/docs/8/modules/jsonapi/includes" target="_blank">Learn more in the documentation</a>.</p><p><h5>Possible values:</h5><code>agency, foia_officers, field_misc, public_liaisons, paper_receiver, request_form, service_centers</code></p>
+        schema:
+          type: string
+      tags:
+      - Agency Component
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/vnd.api+json:
+              schema:
+                title: paragraph:admin_app_via Schema
+                description: Describes the payload for 'paragraph' entities of the 'admin_app_via' bundle.
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/paragraph--admin_app_via/properties/data'
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+                  links:
+                    type: object
+                    additionalProperties:
+                      description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                      type: object
+                      required:
+                      - href
+                      properties:
+                        href:
+                          description: 'A string containing the link''s URL . '
+                          type: string
+                          format: uri - reference
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                          type: object
+                          additionalProperties: true
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                        type: object
+                        additionalProperties: true
+                    additionalProperties: false
+                additionalProperties: true
+        '400':
+          description: Syntax error
+        '403':
+          description: 'Forbidden: The api_key is missing'
+        '404':
+          description: Not Found
+      operationId: getAgencyComponents
+      x-operation-id-source: derived
+  /agency_components/{entity}:
+    get:
+      summary: Get Agency Component Details
+      description: Request details for an Agency Component by UUID.
+      parameters:
+      - name: entity
+        required: true
+        in: path
+        description: The uuid of the node agency_component
+        schema:
+          type: string
+      tags:
+      - Agency Component
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/node--agency_component'
+        '400':
+          description: Syntax error
+        '403':
+          description: 'Forbidden: The api_key is missing'
+        '404':
+          description: Agency Component Not Found
+      operationId: getAgencyComponentsByEntity
+      x-operation-id-source: derived
+  /agency_components/{entity}/request_form:
+    get:
+      summary: Get Agency Component Request Form
+      description: 'Get a Request Form for an Agency by UUID. A Request Form is necessary for submitting a FOIA Request using the webform/submit endpoint.
+
+        For Example:
+
+
+        https://api.foia.gov/api/agency_components/8216158f-8089-431d-b866-dc334e8d4758/request_form
+
+
+        You will get back the UUID 3d10c8bd-b803-467d-a9a3-797cf8c760a7 for the NARA-WJCPL form.'
+      parameters:
+      - name: entity
+        required: true
+        in: path
+        description: The uuid of the node agency_component
+        schema:
+          type: string
+      tags:
+      - Agency Component
+      responses:
+        '200':
+          description: Successful Operation
+        '400':
+          description: Syntax error
+        '403':
+          description: 'Forbidden: The api_key is missing'
+        '404':
+          description: Not Found
+      operationId: getAgencyComponentsByEntityRequestForm
+      x-operation-id-source: derived
+components:
+  schemas:
+    node--agency_component:
+      title: node:agency_component Schema
+      description: An Agency Component to which a request can be sent and which will be fulfilling requests.
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent resources.
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              title: type
+              description: Resource type
+              enum:
+              - agency_component
+            id:
+              type: string
+              title: Resource ID
+              format: uuid
+              maxLength: 128
+            attributes:
+              description: Entity attributes
+              type: object
+              additionalProperties: false
+              properties:
+                status:
+                  type: boolean
+                  title: Published
+                  default: true
+                title:
+                  type: string
+                  title: Agency Component Name
+                  maxLength: 255
+                moderation_state:
+                  type: string
+                  title: Moderation state
+                  maxLength: 255
+                  description: The moderation state of this piece of content.
+                description:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Text
+                    format:
+                      type: string
+                      title: Text format
+                    summary:
+                      type: string
+                      title: Summary
+                  required:
+                  - value
+                  title: Agency Component Description
+                  description: Describes the Agency Component, and provides any textual information needed.
+                abbreviation:
+                  type: string
+                  title: Abbreviation
+                  maxLength: 50
+                telephone:
+                  type: string
+                  title: Telephone
+                request_data_complex_average_days:
+                  type: string
+                  title: Complex Average Days
+                  maxLength: 255
+                request_data_complex_highest_days:
+                  type: string
+                  title: Complex Highest Days
+                  maxLength: 255
+                request_data_complex_lowest_days:
+                  type: string
+                  title: Complex Lowest Days
+                  maxLength: 255
+                request_data_complex_median_days:
+                  type: string
+                  title: Complex Median Days
+                  maxLength: 255
+                email:
+                  type: array
+                  title: Email
+                  items:
+                    type: string
+                    title: Email
+                    format: email
+                request_data_expedited_average_days:
+                  type: string
+                  title: Expedited Average Days
+                  maxLength: 255
+                request_data_expedited_highest_days:
+                  type: string
+                  title: Expedited Highest Days
+                  maxLength: 255
+                request_data_expedited_lowest_days:
+                  type: string
+                  title: Expedited Lowest Days
+                  maxLength: 255
+                request_data_expedited_median_days:
+                  type: string
+                  title: Expedited Median Days
+                  maxLength: 255
+                is_centralized:
+                  type: boolean
+                  title: Is Centralized
+                  description: Denotes whether or not this Agency Component belongs to a centralized agency. If it is the only component in the agency, the value should be set to true.
+                  default: false
+                portal_submission_format:
+                  type: string
+                  title: Portal Submission Format
+                  enum:
+                  - email
+                  - api
+                  description: Select the means by which the Portal should submit requests to the Agency Component.
+                  default: email
+                reading_rooms:
+                  type: array
+                  title: Reading Rooms
+                  items:
+                    type: object
+                    properties:
+                      uri:
+                        type: string
+                        title: URI
+                      title:
+                        type: string
+                        title: Link text
+                    title: Options
+                field_rep_exp:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Date value
+                      format: date
+                  required:
+                  - value
+                  title: Report Expiration Date
+                  description: If the agency/component no longer exists, please enter the last day of the FY for which the agency/component submitted an Annual FOIA Report. Agencies/Components with an expiration date will not display data for subsequent FY after that date.
+                field_rep_start:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Date value
+                      format: date
+                  required:
+                  - value
+                  title: Report Start Date
+                  description: Please enter the first day of the FY that this agency/component began reporting in the Annual FOIA Report. All agencies that have submitted or are submitting Annual FOIA Reports must have a Reporting Start Date.
+                request_data_year:
+                  type: string
+                  title: Request Data Year
+                  maxLength: 5
+                request_data_simple_average_days:
+                  type: string
+                  title: Simple Average Days
+                  maxLength: 255
+                request_data_simple_highest_days:
+                  type: string
+                  title: Simple Highest Days
+                  maxLength: 255
+                request_data_simple_lowest_days:
+                  type: string
+                  title: Simple Lowest Days
+                  maxLength: 255
+                request_data_simple_median_days:
+                  type: string
+                  title: Simple Median Days
+                  maxLength: 255
+                submission_address:
+                  type: object
+                  properties:
+                    langcode:
+                      type: string
+                      title: The language code
+                    country_code:
+                      type: string
+                      title: The two-letter country code
+                    administrative_area:
+                      type: string
+                      title: The top-level administrative subdivision of the country
+                    locality:
+                      type: string
+                      title: The locality (i.e. city)
+                    dependent_locality:
+                      type: string
+                      title: The dependent locality (i.e. neighbourhood)
+                    postal_code:
+                      type: string
+                      title: The postal code
+                    sorting_code:
+                      type: string
+                      title: The sorting code
+                    address_line1:
+                      type: string
+                      title: The first line of the address block
+                    address_line2:
+                      type: string
+                      title: The second line of the address block
+                    organization:
+                      type: string
+                      title: The organization
+                    given_name:
+                      type: string
+                      title: The given name
+                    additional_name:
+                      type: string
+                      title: The additional name
+                    family_name:
+                      type: string
+                      title: The family name
+                  title: Submission Address
+                  description: 'Note: If the zip-code provided is not valid for that State, an error message saying the zip-code format is invalid will be displayed.'
+                submission_fax:
+                  type: string
+                  title: Submission Fax
+                submission_web:
+                  type: object
+                  properties:
+                    uri:
+                      type: string
+                      title: URI
+                    title:
+                      type: string
+                      title: Link text
+                  title: Submission Web
+                website:
+                  type: object
+                  properties:
+                    uri:
+                      type: string
+                      title: URI
+                    title:
+                      type: string
+                      title: Link text
+                  title: Website
+                  description: The full URL of the Agency Component\'s website.
+              required:
+              - title
+            relationships:
+              description: Entity relationships
+              type: object
+              additionalProperties: false
+              properties:
+                agency:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - agency
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Agency
+                foia_officers:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                            enum:
+                            - foia_personnel
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: FOIA Officers
+                field_misc:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                            enum:
+                            - foia_personnel
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: Misc
+                public_liaisons:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                            enum:
+                            - foia_personnel
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: Public Liaisons
+                paper_receiver:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - foia_personnel
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Receiver
+                request_form:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - webform
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Request Submission Form
+                service_centers:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                            enum:
+                            - foia_personnel
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: Service Centers
+            links:
+              type: object
+              additionalProperties:
+                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                type: object
+                required:
+                - href
+                properties:
+                  href:
+                    description: 'A string containing the link''s URL . '
+                    type: string
+                    format: uri - reference
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+        meta:
+          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+          type: object
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties:
+            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+            type: object
+            required:
+            - href
+            properties:
+              href:
+                description: 'A string containing the link''s URL . '
+                type: string
+                format: uri - reference
+              meta:
+                description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                type: object
+                additionalProperties: true
+        jsonapi:
+          description: An object describing the server's implementation
+          type: object
+          properties:
+            version:
+              type: string
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+      additionalProperties: true
+    paragraph--admin_app_via:
+      title: paragraph:admin_app_via Schema
+      description: Describes the payload for 'paragraph' entities of the 'admin_app_via' bundle.
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent resources.
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              title: type
+              description: Resource type
+              enum:
+              - paragraph--admin_app_via
+            id:
+              type: string
+              title: Resource ID
+              format: uuid
+              maxLength: 128
+            attributes:
+              description: Entity attributes
+              type: object
+              additionalProperties: false
+              properties:
+                field_app_pend_end_yr:
+                  type: integer
+                  title: Number of Appeals Pending as of End of Fiscal Year
+                field_app_pend_start_yr:
+                  type: integer
+                  title: Number of Appeals Pending as of Start of Fiscal Year
+                field_app_processed_yr:
+                  type: integer
+                  title: Number of Appeals Processed in Fiscal Year
+                field_app_received_yr:
+                  type: integer
+                  title: Number of Appeals Received in Fiscal Year
+            relationships:
+              description: Entity relationships
+              type: object
+              additionalProperties: false
+              properties:
+                field_agency_component:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Agency/Component
+            links:
+              type: object
+              additionalProperties:
+                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                type: object
+                required:
+                - href
+                properties:
+                  href:
+                    description: 'A string containing the link''s URL . '
+                    type: string
+                    format: uri - reference
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+        meta:
+          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+          type: object
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties:
+            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+            type: object
+            required:
+            - href
+            properties:
+              href:
+                description: 'A string containing the link''s URL . '
+                type: string
+                format: uri - reference
+              meta:
+                description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                type: object
+                additionalProperties: true
+        jsonapi:
+          description: An object describing the server's implementation
+          type: object
+          properties:
+            version:
+              type: string
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+      additionalProperties: true
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
