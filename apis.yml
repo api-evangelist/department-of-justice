@@ -9,15 +9,20 @@ description: >-
   Statistics NCVS and NIBRS APIs, and the DOJ Open Data Catalog.
 type: Index
 deliveryModel:
-  model: unknown
-  open_source: false
-  commercial: false
-  callable_host: false
-  label: Delivery model not determined — needs a product licence on record
+  model: saas
+  license_evidence:
+    not_product:
+    - usdoj/foia.gov
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
-  - none
-  generated: '2026-08-28'
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -35,7 +40,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/department
 tags:
   - Bureau of Justice Statistics
   - Crime
-  - Federal-Government
+  - Federal Government
   - FOIA
   - Justice
   - News
@@ -52,6 +57,7 @@ tags_raw:
   - Open Data
   - Press Releases
   - Statistics
+  - Federal-Government
 url: >-
   https://raw.githubusercontent.com/api-evangelist/department-of-justice/refs/heads/main/apis.yml
 created: '2024-12-03'

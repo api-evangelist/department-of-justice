@@ -192,6 +192,124 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    paragraph--admin_app_via:
+      title: paragraph:admin_app_via Schema
+      description: Describes the payload for 'paragraph' entities of the 'admin_app_via' bundle.
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent resources.
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              title: type
+              description: Resource type
+              enum:
+              - paragraph--admin_app_via
+            id:
+              type: string
+              title: Resource ID
+              format: uuid
+              maxLength: 128
+            attributes:
+              description: Entity attributes
+              type: object
+              additionalProperties: false
+              properties:
+                field_app_pend_end_yr:
+                  type: integer
+                  title: Number of Appeals Pending as of End of Fiscal Year
+                field_app_pend_start_yr:
+                  type: integer
+                  title: Number of Appeals Pending as of Start of Fiscal Year
+                field_app_processed_yr:
+                  type: integer
+                  title: Number of Appeals Processed in Fiscal Year
+                field_app_received_yr:
+                  type: integer
+                  title: Number of Appeals Received in Fiscal Year
+            relationships:
+              description: Entity relationships
+              type: object
+              additionalProperties: false
+              properties:
+                field_agency_component:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Agency/Component
+            links:
+              type: object
+              additionalProperties:
+                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                type: object
+                required:
+                - href
+                properties:
+                  href:
+                    description: 'A string containing the link''s URL . '
+                    type: string
+                    format: uri - reference
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+        meta:
+          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+          type: object
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties:
+            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+            type: object
+            required:
+            - href
+            properties:
+              href:
+                description: 'A string containing the link''s URL . '
+                type: string
+                format: uri - reference
+              meta:
+                description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                type: object
+                additionalProperties: true
+        jsonapi:
+          description: An object describing the server's implementation
+          type: object
+          properties:
+            version:
+              type: string
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+      additionalProperties: true
     node--agency_component:
       title: node:agency_component Schema
       description: An Agency Component to which a request can be sent and which will be fulfilling requests.
@@ -588,124 +706,6 @@ components:
                             format: uuid
                             maxLength: 128
                   title: Service Centers
-            links:
-              type: object
-              additionalProperties:
-                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
-                type: object
-                required:
-                - href
-                properties:
-                  href:
-                    description: 'A string containing the link''s URL . '
-                    type: string
-                    format: uri - reference
-                  meta:
-                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
-                    type: object
-                    additionalProperties: true
-            meta:
-              description: Non-standard meta-information that can not be represented as an attribute or relationship.
-              type: object
-              additionalProperties: true
-          additionalProperties: false
-        meta:
-          description: Non-standard meta-information that can not be represented as an attribute or relationship.
-          type: object
-          additionalProperties: true
-        links:
-          type: object
-          additionalProperties:
-            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
-            type: object
-            required:
-            - href
-            properties:
-              href:
-                description: 'A string containing the link''s URL . '
-                type: string
-                format: uri - reference
-              meta:
-                description: Non-standard meta-information that can not be represented as an attribute or relationship.
-                type: object
-                additionalProperties: true
-        jsonapi:
-          description: An object describing the server's implementation
-          type: object
-          properties:
-            version:
-              type: string
-            meta:
-              description: Non-standard meta-information that can not be represented as an attribute or relationship.
-              type: object
-              additionalProperties: true
-          additionalProperties: false
-      additionalProperties: true
-    paragraph--admin_app_via:
-      title: paragraph:admin_app_via Schema
-      description: Describes the payload for 'paragraph' entities of the 'admin_app_via' bundle.
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          description: \"Resource objects\" appear in a JSON:API document to represent resources.
-          type: object
-          required:
-          - type
-          - id
-          properties:
-            type:
-              type: string
-              title: type
-              description: Resource type
-              enum:
-              - paragraph--admin_app_via
-            id:
-              type: string
-              title: Resource ID
-              format: uuid
-              maxLength: 128
-            attributes:
-              description: Entity attributes
-              type: object
-              additionalProperties: false
-              properties:
-                field_app_pend_end_yr:
-                  type: integer
-                  title: Number of Appeals Pending as of End of Fiscal Year
-                field_app_pend_start_yr:
-                  type: integer
-                  title: Number of Appeals Pending as of Start of Fiscal Year
-                field_app_processed_yr:
-                  type: integer
-                  title: Number of Appeals Processed in Fiscal Year
-                field_app_received_yr:
-                  type: integer
-                  title: Number of Appeals Received in Fiscal Year
-            relationships:
-              description: Entity relationships
-              type: object
-              additionalProperties: false
-              properties:
-                field_agency_component:
-                  type: object
-                  properties:
-                    data:
-                      type: object
-                      required:
-                      - type
-                      - id
-                      properties:
-                        type:
-                          type: string
-                          title: Referenced resource
-                        id:
-                          type: string
-                          title: Resource ID
-                          format: uuid
-                          maxLength: 128
-                  title: Agency/Component
             links:
               type: object
               additionalProperties:
