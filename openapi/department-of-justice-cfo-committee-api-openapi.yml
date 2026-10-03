@@ -285,204 +285,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    paragraph--working_groups:
-      title: paragraph:working_groups Schema
-      description: Describes the payload for 'paragraph' entities of the 'working_groups' bundle.
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          description: \"Resource objects\" appear in a JSON:API document to represent resources.
-          type: object
-          required:
-          - type
-          - id
-          properties:
-            type:
-              type: string
-              title: type
-              description: Resource type
-              enum:
-              - paragraph--working_groups
-            id:
-              type: string
-              title: Resource ID
-              format: uuid
-              maxLength: 128
-            attributes:
-              description: Entity attributes
-              type: object
-              additionalProperties: false
-              properties:
-                drupal_internal__id:
-                  type: integer
-                  title: ID
-                drupal_internal__revision_id:
-                  type: integer
-                  title: Revision ID
-                langcode:
-                  type: object
-                  properties:
-                    value:
-                      type: string
-                      title: Language code
-                    language:
-                      type: language_reference
-                      title: Language object
-                      description: The referenced language
-                  required:
-                  - value
-                  title: Language code
-                  description: The paragraphs entity language code.
-                status:
-                  type: boolean
-                  title: Published
-                  default: true
-                created:
-                  type: number
-                  title: Authored on
-                  format: utc-millisec
-                  description: The time that the Paragraph was created.
-                parent_id:
-                  type: string
-                  title: Parent ID
-                  maxLength: 255
-                  description: The ID of the parent entity of which this entity is referenced.
-                parent_type:
-                  type: string
-                  title: Parent type
-                  maxLength: 32
-                  description: The entity parent type to which this entity is referenced.
-                parent_field_name:
-                  type: string
-                  title: Parent field name
-                  maxLength: 32
-                  description: The entity parent field name to which this entity is referenced.
-                behavior_settings:
-                  type: string
-                  title: Behavior settings
-                  description: The behavior plugin settings
-                  default: a:0:{}
-                default_langcode:
-                  type: boolean
-                  title: Default translation
-                  description: A flag indicating whether this is the default translation.
-                  default: true
-                revision_default:
-                  type: boolean
-                  title: Default revision
-                  description: A flag indicating whether this was a default revision when it was saved.
-                revision_translation_affected:
-                  type: boolean
-                  title: Revision translation affected
-                  description: Indicates if the last edit of a translation belongs to current revision.
-                field_body:
-                  type: object
-                  properties:
-                    value:
-                      type: string
-                      title: Text
-                    format:
-                      type: string
-                      title: Text format
-                  required:
-                  - value
-                  title: Body
-                field_title:
-                  type: string
-                  title: Title
-                  maxLength: 255
-              required:
-              - revision_translation_affected
-            relationships:
-              description: Entity relationships
-              type: object
-              additionalProperties: false
-              properties:
-                paragraph_type:
-                  type: object
-                  properties:
-                    data:
-                      type: object
-                      required:
-                      - type
-                      - id
-                      properties:
-                        type:
-                          type: string
-                          title: Referenced resource
-                          enum:
-                          - paragraphs_type--paragraphs_type
-                        id:
-                          type: string
-                          title: Resource ID
-                          format: uuid
-                          maxLength: 128
-                  title: Paragraph type
-                field_attachments:
-                  type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        required:
-                        - type
-                        - id
-                        properties:
-                          type:
-                            type: string
-                            title: Referenced resource
-                            enum:
-                            - paragraph--attachments
-                          id:
-                            type: string
-                            title: Resource ID
-                            format: uuid
-                            maxLength: 128
-                  title: Attachments
-            links:
-              type: object
-              additionalProperties:
-                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
-                type: object
-                required:
-                - href
-                properties:
-                  href:
-                    description: 'A string containing the link''s URL . '
-                    type: string
-                    format: uri - reference
-                  meta:
-                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
-                    type: object
-                    additionalProperties: true
-            meta:
-              description: Non-standard meta-information that can not be represented as an attribute or relationship.
-              type: object
-              additionalProperties: true
-          additionalProperties: false
-        meta:
-          description: Non-standard meta-information that can not be represented as an attribute or relationship.
-          type: object
-          additionalProperties: true
-        links:
-          type: object
-          additionalProperties:
-            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
-            type: object
-            required:
-            - href
-            properties:
-              href:
-                description: 'A string containing the link''s URL . '
-                type: string
-                format: uri - reference
-              meta:
-                description: Non-standard meta-information that can not be represented as an attribute or relationship.
-                type: object
-                additionalProperties: true
     node--cfo_committee:
       title: node:cfo_committee Schema
       description: Committees of the Chief FOIA Officers Council.  Includes title and WYSIWYG description fields.
@@ -1037,6 +839,204 @@ components:
               additionalProperties: true
           additionalProperties: false
       additionalProperties: true
+    paragraph--working_groups:
+      title: paragraph:working_groups Schema
+      description: Describes the payload for 'paragraph' entities of the 'working_groups' bundle.
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent resources.
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              title: type
+              description: Resource type
+              enum:
+              - paragraph--working_groups
+            id:
+              type: string
+              title: Resource ID
+              format: uuid
+              maxLength: 128
+            attributes:
+              description: Entity attributes
+              type: object
+              additionalProperties: false
+              properties:
+                drupal_internal__id:
+                  type: integer
+                  title: ID
+                drupal_internal__revision_id:
+                  type: integer
+                  title: Revision ID
+                langcode:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Language code
+                    language:
+                      type: language_reference
+                      title: Language object
+                      description: The referenced language
+                  required:
+                  - value
+                  title: Language code
+                  description: The paragraphs entity language code.
+                status:
+                  type: boolean
+                  title: Published
+                  default: true
+                created:
+                  type: number
+                  title: Authored on
+                  format: utc-millisec
+                  description: The time that the Paragraph was created.
+                parent_id:
+                  type: string
+                  title: Parent ID
+                  maxLength: 255
+                  description: The ID of the parent entity of which this entity is referenced.
+                parent_type:
+                  type: string
+                  title: Parent type
+                  maxLength: 32
+                  description: The entity parent type to which this entity is referenced.
+                parent_field_name:
+                  type: string
+                  title: Parent field name
+                  maxLength: 32
+                  description: The entity parent field name to which this entity is referenced.
+                behavior_settings:
+                  type: string
+                  title: Behavior settings
+                  description: The behavior plugin settings
+                  default: a:0:{}
+                default_langcode:
+                  type: boolean
+                  title: Default translation
+                  description: A flag indicating whether this is the default translation.
+                  default: true
+                revision_default:
+                  type: boolean
+                  title: Default revision
+                  description: A flag indicating whether this was a default revision when it was saved.
+                revision_translation_affected:
+                  type: boolean
+                  title: Revision translation affected
+                  description: Indicates if the last edit of a translation belongs to current revision.
+                field_body:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                      title: Text
+                    format:
+                      type: string
+                      title: Text format
+                  required:
+                  - value
+                  title: Body
+                field_title:
+                  type: string
+                  title: Title
+                  maxLength: 255
+              required:
+              - revision_translation_affected
+            relationships:
+              description: Entity relationships
+              type: object
+              additionalProperties: false
+              properties:
+                paragraph_type:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      required:
+                      - type
+                      - id
+                      properties:
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                          - paragraphs_type--paragraphs_type
+                        id:
+                          type: string
+                          title: Resource ID
+                          format: uuid
+                          maxLength: 128
+                  title: Paragraph type
+                field_attachments:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - type
+                        - id
+                        properties:
+                          type:
+                            type: string
+                            title: Referenced resource
+                            enum:
+                            - paragraph--attachments
+                          id:
+                            type: string
+                            title: Resource ID
+                            format: uuid
+                            maxLength: 128
+                  title: Attachments
+            links:
+              type: object
+              additionalProperties:
+                description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+                type: object
+                required:
+                - href
+                properties:
+                  href:
+                    description: 'A string containing the link''s URL . '
+                    type: string
+                    format: uri - reference
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                    type: object
+                    additionalProperties: true
+            meta:
+              description: Non-standard meta-information that can not be represented as an attribute or relationship.
+              type: object
+              additionalProperties: true
+          additionalProperties: false
+        meta:
+          description: Non-standard meta-information that can not be represented as an attribute or relationship.
+          type: object
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties:
+            description: 'A link **MUST** be represented as either: a string containing the link''s URL or a link object . '
+            type: object
+            required:
+            - href
+            properties:
+              href:
+                description: 'A string containing the link''s URL . '
+                type: string
+                format: uri - reference
+              meta:
+                description: Non-standard meta-information that can not be represented as an attribute or relationship.
+                type: object
+                additionalProperties: true
   securitySchemes:
     APIKeyHeader:
       type: apiKey
