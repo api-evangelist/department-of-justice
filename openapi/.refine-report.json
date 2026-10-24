@@ -1,42 +1,44 @@
 {
   "provider": "department-of-justice",
   "sources": [
-    "_original/department-of-justice-foia-api-swagger.json"
+    "_original/department-of-justice-openapi.json"
   ],
   "outputs": [
-    "department-of-justice-agency-component-api-openapi.yml",
-    "department-of-justice-agency-taxonomy-api-openapi.yml",
-    "department-of-justice-annual-foia-report-data-api-openapi.yml",
-    "department-of-justice-cfo-committee-api-openapi.yml",
-    "department-of-justice-cfo-council-api-openapi.yml",
-    "department-of-justice-cfo-meeting-api-openapi.yml",
-    "department-of-justice-cfo-page-api-openapi.yml",
-    "department-of-justice-quarterly-foia-report-data-api-openapi.yml"
+    "department-of-justice-dataset-api-openapi.yml",
+    "department-of-justice-keywords-api-openapi.yml",
+    "department-of-justice-location-api-openapi.yml",
+    "department-of-justice-locations-api-openapi.yml",
+    "department-of-justice-opensearch-api-openapi.yml",
+    "department-of-justice-organizations-api-openapi.yml",
+    "department-of-justice-publishers-api-openapi.yml",
+    "department-of-justice-search-api-openapi.yml",
+    "department-of-justice-stats-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "department-of-justice-foia-api-swagger.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "department-of-justice-foia-api-swagger.json: declared missing tag: Agency Component",
-    "department-of-justice-foia-api-swagger.json: declared missing tag: Agency Taxonomy",
-    "department-of-justice-foia-api-swagger.json: declared missing tag: Annual FOIA Report Data",
-    "department-of-justice-foia-api-swagger.json: declared missing tag: CFO Committee",
-    "department-of-justice-foia-api-swagger.json: declared missing tag: CFO Council",
-    "department-of-justice-foia-api-swagger.json: declared missing tag: CFO Meeting",
-    "department-of-justice-foia-api-swagger.json: declared missing tag: CFO Page",
-    "department-of-justice-foia-api-swagger.json: declared missing tag: Quarterly FOIA Report Data",
-    "apis.yml register: already-registered"
+    "department-of-justice-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "department-of-justice-openapi.json: tagged paths GET /api/dataset/{slug_or_id} -> Dataset",
+    "department-of-justice-openapi.json: tagged paths GET /api/keywords -> Keywords",
+    "department-of-justice-openapi.json: tagged paths GET /api/location/{location_id} -> Location",
+    "department-of-justice-openapi.json: tagged paths GET /api/locations/search -> Locations",
+    "department-of-justice-openapi.json: tagged paths GET /api/opensearch/health -> Opensearch",
+    "department-of-justice-openapi.json: tagged paths GET /api/organizations -> Organizations",
+    "department-of-justice-openapi.json: tagged paths GET /api/publishers -> Publishers",
+    "department-of-justice-openapi.json: tagged paths GET /api/stats -> Stats",
+    "department-of-justice-openapi.json: tagged paths GET /search -> Search",
+    "department-of-justice-openapi.json: declared missing tag: Dataset",
+    "department-of-justice-openapi.json: declared missing tag: Keywords",
+    "department-of-justice-openapi.json: declared missing tag: Location",
+    "department-of-justice-openapi.json: declared missing tag: Locations",
+    "department-of-justice-openapi.json: declared missing tag: Opensearch",
+    "department-of-justice-openapi.json: declared missing tag: Organizations",
+    "department-of-justice-openapi.json: declared missing tag: Publishers",
+    "department-of-justice-openapi.json: declared missing tag: Search",
+    "department-of-justice-openapi.json: declared missing tag: Stats",
+    "apis.yml register: written (+9 apis, 14 total)"
   ],
-  "skipped": [
-    "department-of-justice-agency-component-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "department-of-justice-agency-taxonomy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "department-of-justice-annual-foia-report-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "department-of-justice-cfo-committee-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "department-of-justice-cfo-council-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "department-of-justice-cfo-meeting-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "department-of-justice-cfo-page-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "department-of-justice-quarterly-foia-report-data-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }
