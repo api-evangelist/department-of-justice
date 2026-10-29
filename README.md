@@ -1,4 +1,4 @@
-# Department of Justice (department-of-justice)
+# Department of Justice
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,67 +66,145 @@
 
 The U.S. Department of Justice (DOJ) is the federal executive department responsible for enforcing the law and defending the interests of the United States. DOJ exposes a portfolio of public APIs and data feeds including the DOJ News API for press releases, speeches, and blog entries from the Office of Public Affairs, the FOIA.gov developer APIs, the Bureau of Justice Statistics NCVS and NIBRS APIs, and the DOJ Open Data Catalog.
 
-**URL:** [Visit APIs.yml URL](https://raw.githubusercontent.com/api-evangelist/department-of-justice/refs/heads/main/apis.yml)
+**Areas:** Bureau of Justice Statistics · Crime · Federal Government · FOIA · Justice · News · Open Data · Press Releases · Statistics
 
-## Scope
+## Department of Justice on APIs.io
 
-- **Type:** Index
-- **Position:** Producer
-- **Access:** Public
-- **xType:** government
+Everything profiled for Department of Justice is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/department-of-justice/](https://apis.io/providers/department-of-justice/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (13)
 
-- Bureau of Justice Statistics, Crime, Federal Government, FOIA, Justice, News, Open Data, Press Releases, Statistics
+- [DOJ News API](https://apis.io/apis/department-of-justice/doj-news-api/) — The DOJ News API exposes press releases and blog entries from the Office of Public Affairs as a JSON web service. The api_v1 reference documents four…
+- [BJS National Crime Victimization Survey (NCVS) API](https://apis.io/apis/department-of-justice/bjs-ncvs-api/) — The Bureau of Justice Statistics NCVS API provides REST access to the National Crime Victimization Survey datasets. Endpoints expose Personal Victimization,…
+- [BJS NIBRS National Estimates API](https://apis.io/apis/department-of-justice/bjs-nibrs-api/) — The Bureau of Justice Statistics NIBRS National Estimates API provides REST access to the National Incident-Based Reporting System estimates including…
+- [FARA e-File Registrant API](https://apis.io/apis/department-of-justice/fara-efile-api/) — The Foreign Agents Registration Act e-File system exposes registrant data filed under FARA as JSON. The DOJ Developer Resources page describes the FARA.gov…
+- [DOJ Open Data Catalog](https://apis.io/apis/department-of-justice/doj-open-data-catalog/) — DOJ publishes datasets through the Open Government program and the Department's Data Inventory. Datasets are also surfaced on Data.gov under the doj-gov…
+- [Department of Justice Agency Component API](https://apis.io/apis/department-of-justice/department-of-justice-agency-component-api/) — The Agency Component API from Department of Justice — 3 operation(s) for agency component.
+- [Department of Justice Agency Taxonomy API](https://apis.io/apis/department-of-justice/department-of-justice-agency-taxonomy-api/) — The Agency Taxonomy API from Department of Justice — 2 operation(s) for agency taxonomy.
+- [Department of Justice Annual FOIA Report Data API](https://apis.io/apis/department-of-justice/department-of-justice-annual-foia-report-data-api/) — The Annual FOIA Report Data API from Department of Justice — 3 operation(s) for annual foia report data.
+- [Department of Justice CFO Committee API](https://apis.io/apis/department-of-justice/department-of-justice-cfo-committee-api/) — The CFO Committee API from Department of Justice — 4 operation(s) for cfo committee.
+- [Department of Justice CFO Council API](https://apis.io/apis/department-of-justice/department-of-justice-cfo-council-api/) — The CFO Council API from Department of Justice — 2 operation(s) for cfo council.
+- [Department of Justice CFO Meeting API](https://apis.io/apis/department-of-justice/department-of-justice-cfo-meeting-api/) — The CFO Meeting API from Department of Justice — 5 operation(s) for cfo meeting.
+- [Department of Justice CFO Page API](https://apis.io/apis/department-of-justice/department-of-justice-cfo-page-api/) — The CFO Page API from Department of Justice — 3 operation(s) for cfo page.
+- [Department of Justice Quarterly FOIA Report Data API](https://apis.io/apis/department-of-justice/department-of-justice-quarterly-foia-report-data-api/) — The Quarterly FOIA Report Data API from Department of Justice — 2 operation(s) for quarterly foia report data.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-12-03
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### DOJ News API
-14,000+ press releases, speeches, and blog entries from the Office of Public Affairs as JSON.
+Model Context Protocol servers that expose the API to agents.
 
-**Human URL:** [DOJ Developer](https://www.justice.gov/developer/api-documentation/api_v1)
+- [department-of-justice-mcp.yml](https://apis.io/servers/department-of-justice/department-of-justice-mcp-yml/)
 
-### FOIA.gov Annual Report API
-Annual FOIA reports as XML conforming to the FOIA Annual Report XML schema.
+#### JSON-LD (1)
 
-**Human URL:** [FOIA.gov Developer](https://www.foia.gov/developer/)
+Linked-data contexts for the provider's vocabulary.
 
-### BJS National Crime Victimization Survey (NCVS) API
-REST access to NCVS personal and household victimization datasets.
+- [Department Of Justice Context](https://apis.io/jsonld/department-of-justice/department-of-justice-context/)
 
-**Human URL:** [BJS NCVS API](https://bjs.ojp.gov/national-crime-victimization-survey-ncvs-api)
+#### Vocabulary (1)
 
-### BJS NIBRS National Estimates API
-REST access to NIBRS national estimates of victimization counts and rates.
+The provider's domain terms, defined.
 
-**Human URL:** [BJS NIBRS API](https://bjs.ojp.gov/national-incident-based-reporting-system-nibrs-national-estimates-api)
+- [Department of Justice Vocabulary](https://apis.io/vocabularies/department-of-justice/department-of-justice-vocabulary/)
 
-### DOJ Open Data Catalog
-DOJ datasets via Data.gov CKAN API.
+#### Overlays (1)
 
-**Human URL:** [DOJ Data](https://www.justice.gov/data)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-## Common Properties
+- [Department Of Justice Foia Api Overlay](https://apis.io/overlays/department-of-justice/department-of-justice-foia-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Department Of Justice Authentication](https://apis.io/security/department-of-justice/department-of-justice-authentication/)
+- [Department Of Justice Domain Security](https://apis.io/security/department-of-justice/department-of-justice-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Department Of Justice Plans Pricing](https://apis.io/plans/department-of-justice/department-of-justice-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Department Of Justice Rate Limits](https://apis.io/rate-limits/department-of-justice/department-of-justice-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Department Of Justice Finops](https://apis.io/finops/department-of-justice/department-of-justice-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.justice.gov)
-- [Open Government](https://www.justice.gov/open)
-- [Developer](https://www.justice.gov/developer)
-- [News](https://www.justice.gov/news)
-- [FOIA](https://www.foia.gov)
-- [Bureau of Justice Statistics](https://bjs.ojp.gov)
-- [Office of Justice Programs](https://www.ojp.gov)
-- [FBI](https://www.fbi.gov)
-- [Data.gov DOJ Catalog](https://catalog.data.gov/organization/doj-gov)
-- [JSON-LD](json-ld/department-of-justice-context.jsonld)
-- [Vocabulary](vocabulary/department-of-justice-vocabulary.yml)
-- [Capabilities](capabilities/department-of-justice-capabilities.yml)
+- [Documentation](https://www.justice.gov/developer/api-documentation/api_v1)
+- [API reference](https://www.foia.gov/swagger.html)
+- [Support](https://www.justice.gov/contact-us)
+- [Blog](https://www.justice.gov/rss.xml)
+- [Terms of service](https://www.justice.gov/legalpolicies)
+- [Privacy policy](https://www.justice.gov/legalpolicies)
+- [GitHub](https://github.com/usdoj)
 
-## Maintainers
+## API Evangelist rating
 
-- **FN:** Kin Lane
-- **Email:** kin@apievangelist.com
+**Kin Score 43.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 79.5 |
+| Contract quality | 36.7 |
+| Contract governance | 31.8 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 47.0 |
+| Access clarity | 34.2 |
+
+**Agent readiness 22.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 24.5** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/department-of-justice/](https://apis.io/providers/department-of-justice/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Department of Justice: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/department-of-justice/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
